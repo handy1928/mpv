@@ -96,9 +96,11 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		end
 
 		tmp_track_type = ''
+		track_type_number = 0
 		for _, track in ipairs(tracklist) do
 			if track_type == 'all' and track.type ~= tmp_track_type then
 				tmp_track_type = track.type
+				track_type_number = track_type_number + 1
 				name = track.type
 				if track.type == 'sub' then
 					name = '——————————————————————————— Subtitles ———————————————————————————'
@@ -133,7 +135,7 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				items[#items + 1] = {
 					title = (track.title and track.title or t('Track %s', track.id)),
 					hint = table.concat(hint_values, ', '),
-					value = track.id,
+					value = track.id * 10 + track_type_number,
 					active = track.selected,
 				}
 
@@ -151,10 +153,27 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		if value == '{load}' then
 			mp.command(load_command)
 		else
-			mp.commandv('set', track_prop, value and value or 'no')
+			if value then
+				value = tostring(value)
+				id = tonumber(value:sub(1,1))
+				a_track_type = tonumber(value:sub(-1))
+
+				if a_track_type == 1 then
+					track_prop = 'vid'
+				end
+				if a_track_type == 2 then
+					track_prop = 'aid'
+				end
+				if a_track_type == 3 then
+					track_prop = 'sid'
+				end
+			else
+				id = nil
+			end
+			mp.commandv('set', track_prop, id and id or 'no')
 
 			-- If subtitle track was selected, assume user also wants to see it
-			if value and track_type == 'sub' then
+			if id and (track_type == 'sub' or a_track_type == 3) then
 				mp.commandv('set', 'sub-visibility', 'yes')
 			end
 		end
