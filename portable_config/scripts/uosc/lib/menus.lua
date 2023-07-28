@@ -95,8 +95,26 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			items[#items + 1] = disabled_item
 		end
 
+		tmp_track_type = ''
 		for _, track in ipairs(tracklist) do
-			if track.type == track_type then
+			if track_type == 'all' and track.type ~= tmp_track_type then
+				tmp_track_type = track.type
+				name = track.type
+				if track.type == 'sub' then
+					name = '——————————————————————————— Subtitles ———————————————————————————'
+				end
+				if track.type == 'audio' then
+					name = '————————————————————————————— Audio —————————————————————————————'
+				end
+				if track.type == 'video' then
+					name = '————————————————————————————— Video —————————————————————————————'
+				end
+				items[#items + 1] = {
+					title = t(name), bold = true, italic = true, separator = true, active = false
+				}
+			end
+
+			if track_type == 'all' or track.type == track_type then
 				local hint_values = {}
 				local function h(value) hint_values[#hint_values + 1] = value end
 
@@ -140,6 +158,10 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				mp.commandv('set', 'sub-visibility', 'yes')
 			end
 		end
+	end
+
+	if track_type == 'all' then
+		menu_title = t('All Tracks')
 	end
 
 	return create_self_updating_menu_opener({

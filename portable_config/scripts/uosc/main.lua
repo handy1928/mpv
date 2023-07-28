@@ -953,6 +953,9 @@ for _, loader in ipairs(track_loaders) do
 		)
 	end)
 end
+bind_command('tracks', create_select_tracklist_type_menu_opener(
+	t('Tracks'), 'all', 'sid,aid,vid'
+))
 bind_command('subtitles', create_select_tracklist_type_menu_opener(
 	t('Subtitles'), 'sub', 'sid', 'script-binding uosc/load-subtitles'
 ))
