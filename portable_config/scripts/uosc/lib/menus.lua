@@ -125,8 +125,9 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p'))
 				end
 				if track['demux-fps'] then h(string.format('%.5gfps', track['demux-fps'])) end
+				if track['demux-bitrate'] then h(string.format('%.0f kb/s', track['demux-bitrate']/1000)) end -- TODO not working with mkv
 				h(track.codec)
-				if track['audio-channels'] then h(t(track['audio-channels'] == 1 and '%s channel' or '%s channels', track['audio-channels'])) end
+				if track['demux-channel-count'] then h(t(track['demux-channel-count'] == 1 and '%s channel' or '%s channels', track['demux-channel-count'])) end
 				if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
 				if track.forced then h(t('forced')) end
 				if track.default then h(t('default')) end
