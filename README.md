@@ -13,12 +13,9 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [memo](https://github.com/po5/memo) - Saves watch history, and displays it in a nice menu, integrated with uosc. 
 - [sview](https://github.com/he2a/mpv-scripts/blob/main/scripts/sview.lua) - Show shaders currently running, triggered on shader activation or by toggle button.
 - [autoload](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autoload.lua) - Automatically load playlist entries before and after the currently playing file, by scanning the directory.
-- [autodeint](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autodeint.lua) - Automatically insert the appropriate deinterlacing filter based on a short section of the current video, triggered by toggle button. 
-- [webtorrent-mpv-hook](https://github.com/mrxdst/webtorrent-mpv-hook) - Adds a hook that allows mpv to stream torrents. It provides an osd overlay to show info/progress.
-    - **This script needs some extra setup, follow the simple installation steps [here](https://github.com/mrxdst/webtorrent-mpv-hook#install)**.
-    - **Point to the same location in the File Structure section below when installing the webtorrent.js file.**
+- [autodeint](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autodeint.lua) - Automatically insert the appropriate deinterlacing filter based on a short section of the current video, triggered by toggle button.
 - - - 
-- [nlmeans ](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
+- [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
 - [FidelityFX CAS](https://gist.github.com/agyild/bbb4e58298b2f86aa24da3032a0d2ee6) - Sharpening shader that provides an even level of sharpness across the frame. 
 - [FSRCNNX-TensorFlow](https://github.com/igv/FSRCNN-TensorFlow) - Very resource intensive upscaler that uses a neural network to upscale accurately.
@@ -76,8 +73,7 @@ mpv
 |   |   ├── memo.conf
 |   |   ├── memo-history.log              # Created automatically 
 │   │   ├── thumbfast.conf                    
-│   │   ├── uosc.conf                     # Set desired default directory for uosc menu here
-│   │   └── webtorrent.conf               # Specify where to save downloaded videos here
+│   │   └── uosc.conf                     # Set desired default directory for uosc menu here
 │   │
 │   ├── scripts      
 │   │   ├── uosc              
@@ -116,8 +112,7 @@ mpv
 │   │   ├── evafast.lua                   # Activated by holding right arrow key
 |   |   ├── memo.lua
 |   |   ├── sview.lua
-│   │   ├── thumbfast.lua                     
-│   │   └── webtorrent.js                 # Point here when setting up webtorrent script
+│   │   └── thumbfast.lua
 │   │
 │   ├── shaders                           # Contains external shaders
 │   │   ├── A4K_Dark.glsl                         
