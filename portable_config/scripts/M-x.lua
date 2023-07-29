@@ -9,7 +9,6 @@ local opts = {
   sort_commands_by = 'priority',
 
   -- options for extended menu ------------------------------------------------
-  toggle_menu_binding = 't',
   lines_to_show = 17,
   pause_on_open = true,
   resume_on_exit = "only-if-was-paused", -- another possible value is true
@@ -230,6 +229,6 @@ end)
 mp.observe_property('input-bindings', 'native', update_bindings)
 
 -- keybind to launch menu
-mp.add_key_binding(opts.toggle_menu_binding, "show-key-bindings", function()
+mp.add_key_binding(nil, "show-key-bindings", function()
   mx_menu:init(data)
 end)

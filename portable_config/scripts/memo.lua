@@ -839,7 +839,7 @@ mp.add_key_binding(nil, "memo-search", function()
     end
     mp.commandv("script-message-to", "console", "type", "script-message memo-search: ")
 end)
-mp.add_key_binding("h", "memo-history", function()
+mp.add_key_binding(nil, "memo-history", function()
     if event_loop_exhausted then return end
     last_state = nil
     search_words = nil

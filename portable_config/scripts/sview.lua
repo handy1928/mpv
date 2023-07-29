@@ -16,7 +16,7 @@ local function shader_watch()
   if s ~= '' then
       osd_f(s)
   else
-    mp.osd_message('')
+    mp.osd_message('glsl-shaders')
   end
 end
 
@@ -24,7 +24,7 @@ local function hide_msg()
   mp.osd_message('')
 end
 
-mp.add_key_binding('x', 'shader-view', shader_watch)
+mp.add_key_binding(nil, 'shader-view', shader_watch)
 mp.observe_property('glsl-shaders', nil, hide_msg)
 
 -- [ \w-]+\.+\w+(\n|\Z)

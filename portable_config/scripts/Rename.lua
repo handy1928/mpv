@@ -31,7 +31,7 @@ mp.register_event("end-file", function()
     input.cancel_user_input()
 end)
 
-mp.add_key_binding("F2", "rename-file", function()
+mp.add_key_binding(nil, "rename-file", function()
     filepath = mp.get_property('path')
     directory, filename = utils.split_path(filepath)
     input.cancel_user_input()
@@ -43,7 +43,7 @@ mp.add_key_binding("F2", "rename-file", function()
     })
 end)
 
--- mp.add_key_binding("SHIFT+F2", "clear-input", function ()
+-- mp.add_key_binding("nil", "clear-input", function ()
 --     input.get_user_input(rename,{
 --         text = "Enter new filename:",
 --         default_input = "filename",

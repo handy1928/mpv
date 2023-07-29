@@ -68,5 +68,5 @@ end
 
 mp.register_script_message('calc-time-diff-inside', calc_time_diff_inside)
 
-mp.add_key_binding("Ctrl+c", "copy-time", copy_time)
-mp.add_key_binding("Ctrl+v", "calc-time-diff", calc_time_diff)
+mp.add_key_binding(nil, "copy-time", copy_time)
+mp.add_key_binding(nil, "calc-time-diff", calc_time_diff)
