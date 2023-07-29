@@ -25,6 +25,7 @@ local opts = {
   text_color = {
     default = 'ffffff',
     accent = 'd8a07b',
+    ignored = 'FF5733',
     current = 'aaaaaa',
     comment = '636363',
   },
@@ -56,8 +57,12 @@ local function sort_cmd_list()
     if opts.sort_commands_by == 'priority' then
       return tonumber(i.priority) > tonumber(j.priority)
     end
-    -- sort by command name by default
-    return i.cmd < j.cmd
+    if opts.sort_commands_by == 'length' then
+      return string.len(i.key) < string.len(j.key)
+    end
+    if opts.sort_commands_by == 'command_name' then
+      return i.cmd < j.cmd
+    end
   end)
 end
 
@@ -169,14 +174,17 @@ function em:get_line(_, v)
   end
 
   -- handle inactive keybindings
-  if v.shadowed or v.priority == -1 then
+  if cmd == 'ignore' then v.priority = -1 end
+
+  if v.shadowed or v.priority <= -1 then
     local why_inactive = (v.priority == -1)
         and 'inactive keybinding'
         or 'that binding is currently shadowed by another one'
 
-    a:append(self:get_font_color('comment'))
-    a:append(cmd)
+    a:append(self:get_font_color('ignored'))
     a:append('\\h(' .. key .. ')')
+    a:append(self:get_font_color('comment'))
+    a:append(' ' .. cmd)
 
     if opts.column_layout then
       a:append(get_spaces(comment_offset - cmdkbd_len))
@@ -187,11 +195,11 @@ function em:get_line(_, v)
     a:append('(' .. why_inactive .. ')')
     return a.text
   end
-
-  a:append(self:get_font_color('default'))
-  a:append(cmd)
+  
   a:append(self:get_font_color('accent'))
   a:append('\\h(' .. key .. ')')
+  a:append(self:get_font_color('default'))
+  a:append(" " .. cmd)
   a:append(self:get_font_color('comment'))
 
   if opts.column_layout then
