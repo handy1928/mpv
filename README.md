@@ -21,6 +21,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [user-input](https://github.com/CogentRedTester/mpv-user-input) - common API that other scripts can use to request text input from the user via the OSD.
 - [rename](https://github.com/Kayizoku/mpv-rename) - Ability to rename files on the go directly within MPV player window without having to leave it.
 - [copy-time](https://github.com/linguisticmind/mpv-scripts/blob/master/copy-time/win/copy-time.lua) - Copies current timecode in HH:MM:SS.MS format to clipboard (Windows)
+- [show-errors](https://github.com/CogentRedTester/mpv-scripts/blob/master/show-errors.lua) - Prints error messages onto the OSD
 - - - 
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
@@ -125,6 +126,7 @@ mpv
 |   |   ├── memo.lua
 |   |   ├── misc.lua
 |   |   ├── Rename.lua
+|   |   ├── show-errors.lua
 |   |   ├── sview.lua
 │   │   ├── thumbfast.lua
 │   │   └── user-input.lua
