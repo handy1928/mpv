@@ -24,6 +24,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [show-errors](https://github.com/CogentRedTester/mpv-scripts/blob/master/show-errors.lua) - Prints error messages onto the OSD.
 - [crop](https://github.com/occivink/mpv-scripts/blob/master/scripts/crop.lua) - Crop the current video in a visual manner.
 - [M_x](https://github.com/Seme4eg/mpv-scripts/tree/master#m-x) - A menu that shows all commands you have available, key bindings and commends (if present) and from which you can call any of those commands.
+- [taskbar-buttons](https://github.com/qwerty12/mpv-taskbar-buttons/tree/pure-luajit) - Hack to add media control taskbar buttons (well, thumbbar buttons) for mpv.
 - - - 
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
@@ -94,7 +95,8 @@ mpv
 │   │   └── uosc.conf                     # Set desired default directory for uosc menu here
 │   │
 │   ├── scripts      
-│   │   ├── uosc              
+│   │   ├── mpv-taskbar-buttons-pure-luajit       # Full folder of files
+│   │   ├── uosc
 │   │       ├── elements 
 |   |           ├── BufferingIndicator.lua
 |   |           ├── Button.lua
