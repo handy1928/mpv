@@ -18,6 +18,8 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
   - Restart mpv restoring the properties path, time-pos, pause and volume.
   - Execute Lua code from input.conf.
   - When seeking display position and duration like so: 70:00 / 80:00.
+- [user-input](https://github.com/CogentRedTester/mpv-user-input) - common API that other scripts can use to request text input from the user via the OSD.
+- [rename](https://github.com/Kayizoku/mpv-rename) - Ability to rename files on the go directly within MPV player window without having to leave it.
 - - - 
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
@@ -74,6 +76,9 @@ mpv
 │   ├── screenshots
 |   |   └── media-info.jpg                # Screenshot from misc.lua mediainfo
 │   │
+│   ├── script-modules                
+│   │   └── user-input-module.lua
+│   │
 │   ├── script-opts                       # Contains configuration files for scripts
 |   |   ├── console.conf
 |   |   ├── memo.conf
@@ -117,8 +122,10 @@ mpv
 │   │   ├── autoload.lua
 |   |   ├── memo.lua
 |   |   ├── misc.lua
+|   |   ├── Rename.lua
 |   |   ├── sview.lua
-│   │   └── thumbfast.lua
+│   │   ├── thumbfast.lua
+│   │   └── user-input.lua
 │   │
 │   ├── shaders                           # Contains external shaders
 │   │   ├── A4K_Dark.glsl                         
