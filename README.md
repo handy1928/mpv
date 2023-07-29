@@ -20,6 +20,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
   - When seeking display position and duration like so: 70:00 / 80:00.
 - [user-input](https://github.com/CogentRedTester/mpv-user-input) - common API that other scripts can use to request text input from the user via the OSD.
 - [rename](https://github.com/Kayizoku/mpv-rename) - Ability to rename files on the go directly within MPV player window without having to leave it.
+- [copy-time](https://github.com/linguisticmind/mpv-scripts/blob/master/copy-time/win/copy-time.lua) - Copies current timecode in HH:MM:SS.MS format to clipboard (Windows)
 - - - 
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
@@ -120,6 +121,7 @@ mpv
 │   │
 │   │   ├── autodeint.lua                 # Set key binding here, not input.conf (Ctrl+d)
 │   │   ├── autoload.lua
+│   │   ├── copy-time.lua
 |   |   ├── memo.lua
 |   |   ├── misc.lua
 |   |   ├── Rename.lua
