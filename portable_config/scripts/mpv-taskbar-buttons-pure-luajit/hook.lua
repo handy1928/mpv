@@ -25,9 +25,9 @@ ffi.cdef [[
 local WH_GETMESSAGE = 3
 
 local callbacks = {
-    [common.button_ids[C.BUTTON_PREV]] = function() mp.command("playlist-prev") end,
+    [common.button_ids[C.BUTTON_PREV]] = function() mp.commandv("script-binding", "uosc/prev") end,
     [common.button_ids[C.BUTTON_PLAY_PAUSE]] = function() mp.commandv("cycle", "pause") end,
-    [common.button_ids[C.BUTTON_NEXT]] = function() mp.command("playlist-next") end
+    [common.button_ids[C.BUTTON_NEXT]] = function() mp.commandv("script-binding", "uosc/next") end
 }
 
 local mpv_hwnd, mpv_tid = common.get_mpv_hwnd()
