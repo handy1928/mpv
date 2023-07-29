@@ -9,17 +9,6 @@
 
 require "mp"
 
-function set_clipboard (text)
-  local echo
-  if text ~= "" then
-    for i = 1, 2 do text = text:gsub("[%^&\\<>|]", "^%0") end
-    echo = "(echo " .. text:gsub("\n", " & echo ") .. ")"
-  else
-    echo = "echo:"
-  end
-  mp.commandv("run", "cmd.exe", "/d", "/c", echo .. " | clip")
-end
-
 function copy_time()
   local time_pos = mp.get_property_number("time-pos")
   local time_in_seconds = time_pos
@@ -30,8 +19,8 @@ function copy_time()
   local time_minutes = time_pos/60
   time_seg,time_ms=string.format("%.03f", time_seg):match"([^.]*).(.*)"
   time = string.format("%02d:%02d:%02d.%s", time_hours, time_minutes, time_seg, time_ms)
-  set_clipboard(time)
-  mp.osd_message(string.format("Copied to clipboard: %s", time))
+  mp.commandv("script-message", "set-clipboard", time)
 end
 
-mp.add_key_binding("Ctrl+Alt+c", "copy-time", copy_time)
+
+mp.add_key_binding("Ctrl+c", "copy-time", copy_time)
