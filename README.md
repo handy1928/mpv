@@ -23,6 +23,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [copy-time](https://github.com/linguisticmind/mpv-scripts/blob/master/copy-time/win/copy-time.lua) - Copies current timecode in HH:MM:SS.MS format to clipboard (Windows).
 - [show-errors](https://github.com/CogentRedTester/mpv-scripts/blob/master/show-errors.lua) - Prints error messages onto the OSD.
 - [crop](https://github.com/occivink/mpv-scripts/blob/master/scripts/crop.lua) - Crop the current video in a visual manner.
+- [M_x](https://github.com/Seme4eg/mpv-scripts/tree/master#m-x) - A menu that shows all commands you have available, key bindings and commends (if present) and from which you can call any of those commands.
 - - - 
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
@@ -80,11 +81,13 @@ mpv
 |   |   └── media-info.jpg                # Screenshot from misc.lua mediainfo
 │   │
 │   ├── script-modules                
+│   │   ├── extended-menu.lua
 │   │   └── user-input-module.lua
 │   │
 │   ├── script-opts                       # Contains configuration files for scripts
 |   |   ├── console.conf
 |   |   ├── crop.conf
+|   |   ├── M_x.conf
 |   |   ├── memo.conf
 |   |   ├── memo-history.log              # Created automatically 
 │   │   ├── thumbfast.conf                    
@@ -126,6 +129,7 @@ mpv
 │   │   ├── autoload.lua
 │   │   ├── copy-time.lua
 |   |   ├── crop.lua
+|   |   ├── M-x.lua
 |   |   ├── memo.lua
 |   |   ├── misc.lua
 |   |   ├── Rename.lua
