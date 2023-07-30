@@ -1261,18 +1261,21 @@ mp.register_script_message('update-menu', function(json)
 		else open_command_menu(data) end
 	end
 end)
-if options.create_thumbnails then
-	mp.register_script_message('thumbfast-info', function(json)
-		local data = utils.parse_json(json)
-		if type(data) ~= 'table' or not data.width or not data.height then
-			thumbnail.disabled = true
-			msg.error('thumbfast-info: received json didn\'t produce a table with thumbnail information')
-		else
-			thumbnail = data
-			request_render()
-		end
-	end)
+local function enable_thumbnails()
+	if options.create_thumbnails then
+		mp.register_script_message('thumbfast-info', function(json)
+			local data = utils.parse_json(json)
+			if type(data) ~= 'table' or not data.width or not data.height then
+				thumbnail.disabled = true
+				msg.error('thumbfast-info: received json didn\'t produce a table with thumbnail information')
+			else
+				thumbnail = data
+				request_render()
+			end
+		end)
+	end
 end
+enable_thumbnails()
 mp.register_script_message('set', function(name, value)
 	external[name] = value
 	Elements:trigger('external_prop_' .. name, value)
@@ -1285,6 +1288,12 @@ mp.register_script_message('set-min-visibility', function(visibility, elements)
 end)
 mp.register_script_message('flash-elements', function(elements) Elements:flash(split(elements, ' *, *')) end)
 mp.register_script_message('overwrite-binding', function(name, command) key_binding_overwrites[name] = command end)
+
+mp.register_script_message('enable-thumbnails', function() 
+	mp.osd_message("creating thumbnails")
+	options.create_thumbnails = true
+	enable_thumbnails()
+end)
 
 --[[ ELEMENTS ]]
 
