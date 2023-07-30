@@ -1290,9 +1290,11 @@ mp.register_script_message('flash-elements', function(elements) Elements:flash(s
 mp.register_script_message('overwrite-binding', function(name, command) key_binding_overwrites[name] = command end)
 
 mp.register_script_message('enable-thumbnails', function() 
-	mp.osd_message("creating thumbnails")
-	options.create_thumbnails = true
-	enable_thumbnails()
+	if not options.create_thumbnails then
+		options.create_thumbnails = true
+		mp.osd_message("creating thumbnails")
+		enable_thumbnails()
+	end
 end)
 
 --[[ ELEMENTS ]]
