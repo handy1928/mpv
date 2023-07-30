@@ -28,6 +28,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [clipboard](https://github.com/CogentRedTester/mpv-clipboard) - Provides generic but powerful low-level clipboard commands for users and script writers.
 - [cycle-denoise](https://gist.github.com/myfreeer/d744c445aa71c0eeb165ca39cf6c0511) - mpv user-script to cycle between lavfi's denoise filters.
 - [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
+- [waveform](https://github.com/MikelSotomonte/mpv-waveform/tree/main) - Displays a waveform of the video in real-time using ffmpeg waveforms.
 - - -
 Peronally added in scripts:
 
