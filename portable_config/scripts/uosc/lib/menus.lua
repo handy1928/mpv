@@ -215,8 +215,10 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			}
 		end
 		local media_info_string = get_media_info()
-		media_info_string = string.gsub(media_info_string, "\\n", "§")
-		media_info_table = mysplit(media_info_string,'§')
+		if media_info_string then
+			media_info_string = string.gsub(media_info_string, "\\n", "§")
+			media_info_table = mysplit(media_info_string,'§')
+		end
 
 		local first_item_index = #items + 1
 		local active_index = nil
@@ -241,53 +243,59 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				track_type_number = track_type_number + 1
 				name = track.type
 				if track.type == 'sub' then
-					name = '——————————————————————————— Subtitles ———————————————————————————'
+					name = '—————————————— Subtitles ——————————————'
 				end
 				if track.type == 'audio' then
-					name = '————————————————————————————— Audio —————————————————————————————'
+					name = '———————————————— Audio ————————————————'
 				end
 				if track.type == 'video' then
-					name = '————————————————————————————— Video —————————————————————————————'
+					name = '———————————————— Video ————————————————'
 				end
 				items[#items + 1] = {
-					title = t(name), bold = true, italic = true, separator = true, active = false
+					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
 				}
 			end
 
 			if track_type == 'all' or track.type == track_type then
 				local hint_values = {}
 				local function h(value) hint_values[#hint_values + 1] = value end
-
-				media_info_str = media_info_table[index_var]:sub(3)
+				media_info_str = nil
+				if media_info_table and index_var <= #media_info_table then
+					media_info_str = media_info_table[index_var]:sub(3)
+				end
 
 				if track.type == 'sub' then
-					if track.forced then h(t('forced')) end
-					if track.default then h(t('default')) end
-					if track.external then h(t('external')) end
+					if track.forced then h(t('Forced')) end
+					if track.default then h(t('Default')) end
+					if track.external then h(t('External')) end
 					if track.lang then h(track.lang:upper()) end
-					h(track.codec)
+					h(track.codec:upper())
 				end
 				if track.type == 'audio' then
-					if track.forced then h(t('forced')) end
-					if track.default then h(t('default')) end
-					if track.external then h(t('external')) end
-					if track['demux-channel-count'] then h(t(track['demux-channel-count'] == 1 and '%s channel' or '%s channels', track['demux-channel-count'])) end
+					if track.forced then h(t('Forced')) end
+					if track.default then h(t('Default')) end
+					if track.external then h(t('External')) end
+					if track['demux-channel-count'] then h(t(track['demux-channel-count'] == 1 and '%s Channel' or '%s Channels', track['demux-channel-count'])) end
 					if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
-					h(track.codec)
+					h(track.codec:sub(1,1):upper() .. track.codec:sub(2))
 					if track.lang then h(track.lang:upper()) end
-					h(getBitrate(media_info_str))
+					if media_info_str then h(getBitrate(media_info_str)) end
 				end
 				if track.type == 'video' then
 					if track.lang then h(track.lang:upper()) end
-					if track.forced then h(t('forced')) end
-					if track.default then h(t('default')) end
-					if track.external then h(t('external')) end
-					h(getVideoCodec(media_info_str))
+					if track.forced then h(t('Forced')) end
+					if track.default then h(t('Default')) end
+					if track.external then h(t('External')) end
+					if media_info_str then
+						h(getVideoCodec(media_info_str))
+					else
+						h(track.codec:upper())
+					end
 					if track['demux-fps'] then h(string.format('%.5g FPS', track['demux-fps'])) end
 					if track['demux-h'] then
 						h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p'))
 					end
-					h(getBitrate(media_info_str))
+					if media_info_str then h(getBitrate(media_info_str)) end
 				end
 
 				items[#items + 1] = {
