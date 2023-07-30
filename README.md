@@ -37,6 +37,7 @@ Peronally added in scripts:
 * Added ability to sort by key length in M-x keybind menu.
 * Script to calculate the diffrence between 2 times and copy to clipboard. (my workflow: 2 mpv windows open Ctrl+c in 1 to copy the time. Ctrl+v in 2 to get the diffrence of both times in clipboard)
 * Every Keybind is in the uosc Menu
+* Ability to disable creating thumbnails
 
 ## Shaders
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.

@@ -107,6 +107,7 @@ defaults = {
 	chapter_ranges = 'openings:30abf964,endings:30abf964,ads:c54e4e80',
 	chapter_range_patterns = 'openings:オープニング;endings:エンディング',
 	languages = 'slang,en',
+	create_thumbnails = true,
 }
 options = table_shallow_copy(defaults)
 opt.read_options(options, 'uosc')
@@ -1260,16 +1261,18 @@ mp.register_script_message('update-menu', function(json)
 		else open_command_menu(data) end
 	end
 end)
-mp.register_script_message('thumbfast-info', function(json)
-	local data = utils.parse_json(json)
-	if type(data) ~= 'table' or not data.width or not data.height then
-		thumbnail.disabled = true
-		msg.error('thumbfast-info: received json didn\'t produce a table with thumbnail information')
-	else
-		thumbnail = data
-		request_render()
-	end
-end)
+if options.create_thumbnails then
+	mp.register_script_message('thumbfast-info', function(json)
+		local data = utils.parse_json(json)
+		if type(data) ~= 'table' or not data.width or not data.height then
+			thumbnail.disabled = true
+			msg.error('thumbfast-info: received json didn\'t produce a table with thumbnail information')
+		else
+			thumbnail = data
+			request_render()
+		end
+	end)
+end
 mp.register_script_message('set', function(name, value)
 	external[name] = value
 	Elements:trigger('external_prop_' .. name, value)

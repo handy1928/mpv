@@ -145,7 +145,7 @@ function Timeline:render()
 	local visibility = self:get_visibility()
 	self.is_hovered = false
 
-	if size < 1 then
+	if size < 1 and options.create_thumbnails then
 		if self.has_thumbnail then self:clear_thumbnail() end
 		return
 	end
@@ -387,26 +387,28 @@ function Timeline:render()
 		tooltip_anchor.ay = tooltip_anchor.ay - self.font_size - offset
 
 		-- Thumbnail
-		if not thumbnail.disabled
-			and (not self.pressed or self.pressed.distance < 5)
-			and thumbnail.width ~= 0
-			and thumbnail.height ~= 0
-		then
-			local scale_x, scale_y = display.scale_x, display.scale_y
-			local border, margin_x, margin_y = math.ceil(2 * scale_x), round(10 * scale_x), round(5 * scale_y)
-			local thumb_x_margin, thumb_y_margin = border + margin_x + bax, border + margin_y
-			local thumb_width, thumb_height = thumbnail.width, thumbnail.height
-			local thumb_x = round(clamp(
-				thumb_x_margin, cursor_x * scale_x - thumb_width / 2,
-				display.width * scale_x - thumb_width - thumb_x_margin
-			))
-			local thumb_y = round(tooltip_anchor.ay * scale_y - thumb_y_margin - thumb_height)
-			local ax, ay = (thumb_x - border) / scale_x, (thumb_y - border) / scale_y
-			local bx, by = (thumb_x + thumb_width + border) / scale_x, (thumb_y + thumb_height + border) / scale_y
-			ass:rect(ax, ay, bx, by, {color = bg, border = 1, border_color = fg, border_opacity = 0.08, radius = 2})
-			mp.commandv('script-message-to', 'thumbfast', 'thumb', hovered_seconds, thumb_x, thumb_y)
-			self.has_thumbnail, rendered_thumbnail = true, true
-			tooltip_anchor.ax, tooltip_anchor.bx, tooltip_anchor.ay = ax, bx, ay
+		if options.create_thumbnails then
+			if not thumbnail.disabled
+				and (not self.pressed or self.pressed.distance < 5)
+				and thumbnail.width ~= 0
+				and thumbnail.height ~= 0
+			then
+				local scale_x, scale_y = display.scale_x, display.scale_y
+				local border, margin_x, margin_y = math.ceil(2 * scale_x), round(10 * scale_x), round(5 * scale_y)
+				local thumb_x_margin, thumb_y_margin = border + margin_x + bax, border + margin_y
+				local thumb_width, thumb_height = thumbnail.width, thumbnail.height
+				local thumb_x = round(clamp(
+					thumb_x_margin, cursor_x * scale_x - thumb_width / 2,
+					display.width * scale_x - thumb_width - thumb_x_margin
+				))
+				local thumb_y = round(tooltip_anchor.ay * scale_y - thumb_y_margin - thumb_height)
+				local ax, ay = (thumb_x - border) / scale_x, (thumb_y - border) / scale_y
+				local bx, by = (thumb_x + thumb_width + border) / scale_x, (thumb_y + thumb_height + border) / scale_y
+				ass:rect(ax, ay, bx, by, {color = bg, border = 1, border_color = fg, border_opacity = 0.08, radius = 2})
+				mp.commandv('script-message-to', 'thumbfast', 'thumb', hovered_seconds, thumb_x, thumb_y)
+				self.has_thumbnail, rendered_thumbnail = true, true
+				tooltip_anchor.ax, tooltip_anchor.bx, tooltip_anchor.ay = ax, bx, ay
+			end
 		end
 
 		-- Chapter title
@@ -422,7 +424,9 @@ function Timeline:render()
 	end
 
 	-- Clear thumbnail
-	if not rendered_thumbnail and self.has_thumbnail then self:clear_thumbnail() end
+	if not rendered_thumbnail and self.has_thumbnail and options.create_thumbnails then
+		self:clear_thumbnail()
+	end
 
 	return ass
 end
