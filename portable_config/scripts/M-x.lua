@@ -33,6 +33,8 @@ local opts = {
 
   search_heading = 'M-x',
   filter_by_fields = { 'cmd', 'key', 'comment' },
+  filter_by_fields1 = { 'key' },
+  filter_by_fields2 = { 'cmd', 'key', 'comment' },
   column_layout = false,
 }
 
@@ -229,6 +231,11 @@ end)
 mp.observe_property('input-bindings', 'native', update_bindings)
 
 -- keybind to launch menu
-mp.add_key_binding(nil, "show-key-bindings", function()
+mp.add_key_binding(nil, "show-key-bindings-filter-1", function()
+  opts.filter_by_fields = opts.filter_by_fields1
+  mx_menu:init(data)
+end)
+mp.add_key_binding(nil, "show-key-bindings-filter-2", function()
+  opts.filter_by_fields = opts.filter_by_fields2
   mx_menu:init(data)
 end)
