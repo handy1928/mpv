@@ -6,7 +6,7 @@
 ## Overview
 Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-source, & cross-platform media player, with a focus on quality and a practical yet comfortable viewing experience. Contains tuned profiles (for up/downscaling, live action & anime), custom key bindings, a GUI, as well as multiple scripts, shaders & filters serving different functions. Suitable for both high and low-end computers (with some tweaks).
 
-## Scripts and Shaders
+## Scripts
 - [uosc](https://github.com/darsain/uosc) - Adds a minimalist but highly customizable gui.
 - [thumbfast](https://github.com/po5/thumbfast) - High-performance on-the-fly thumbnailer.
 - [memo](https://github.com/po5/memo) - Saves watch history, and displays it in a nice menu, integrated with uosc. 
@@ -28,7 +28,15 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [clipboard](https://github.com/CogentRedTester/mpv-clipboard) - Provides generic but powerful low-level clipboard commands for users and script writers.
 - [cycle-denoise](https://gist.github.com/myfreeer/d744c445aa71c0eeb165ca39cf6c0511) - mpv user-script to cycle between lavfi's denoise filters.
 - [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
-- - - 
+- - -
+Peronally added in scripts:
+
+* Show all Tracks (Video, Audio, Subtitles) in one uosc menu
+* Added Bitrate shown in Track view loaded via MediaInfo ([MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows) has to be installed)
+* Added ability to sort by key length in M-x Keybind Menu
+* Script to calculate the diffrence between 2 times and copy to clipboard (my workflow: 2 mpv windows open Ctrl+c in 1 to copy the time. Ctrl+v in 2 to get the diffrence of both times in clipboard)
+
+## Shaders
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
 - [FidelityFX CAS](https://gist.github.com/agyild/bbb4e58298b2f86aa24da3032a0d2ee6) - Sharpening shader that provides an even level of sharpness across the frame. 
