@@ -73,6 +73,8 @@ local function get_cmd_list()
   -- sets a flag 'shadowed' to all binding that have a binding with higher
   -- priority using same key binding
   for _, v in ipairs(bindings) do
+    -- handle inactive keybindings
+    if v.cmd == 'ignore' then v.priority = -1 end
     for _, v1 in ipairs(bindings) do
       if v.key == v1.key and v.priority < v1.priority then
         v.shadowed = true
@@ -173,9 +175,6 @@ function em:get_line(_, v)
     for _ = 1, num do s = s .. '\\h' end
     return s
   end
-
-  -- handle inactive keybindings
-  if cmd == 'ignore' then v.priority = -1 end
 
   if v.shadowed or v.priority <= -1 then
     local why_inactive = (v.priority == -1)
