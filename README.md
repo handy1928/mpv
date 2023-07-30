@@ -27,6 +27,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [taskbar-buttons](https://github.com/qwerty12/mpv-taskbar-buttons/tree/pure-luajit) - Hack to add media control taskbar buttons (well, thumbbar buttons) for mpv.
 - [clipboard](https://github.com/CogentRedTester/mpv-clipboard) - Provides generic but powerful low-level clipboard commands for users and script writers.
 - [cycle-denoise](https://gist.github.com/myfreeer/d744c445aa71c0eeb165ca39cf6c0511) - mpv user-script to cycle between lavfi's denoise filters.
+- [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
 - - - 
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
 - [NVIDIA Image Sharpening](https://gist.github.com/agyild/7e8951915b2bf24526a9343d951db214) - An adaptive-directional sharpening algorithm shaders.
