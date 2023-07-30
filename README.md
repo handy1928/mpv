@@ -44,16 +44,15 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
    
 ## Installation (on Windows)
 
-(For Linux and macOS users, once mpv is installed, copying the contents of my `portable_config` into the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
+(Not tested on Linux and macOS. For Linux and macOS users, once mpv is installed, copying the contents of my `portable_config` into the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
 
 * Download the latest 64bit (or 64bit-v3 for newer CPUs) mpv Windows build by shinchiro [here](https://mpv.io/installation/) or directly from [here](https://sourceforge.net/projects/mpv-player-windows/files/) and extract its contents into a folder of your choice (mine is called mpv). This is now your mpv folder and can be placed wherever you want. 
 * Run `mpv-install.bat`, which is located in the `installer` folder (see below), with administrator privileges by right-clicking and selecting run as administrator, after it's done, you'll get a prompt to open Control Panel and set mpv as the default player.
 * Download and extract the `portable_config` folder from this repo to the mpv folder you just made. 
-* Change file paths, in [mpv.conf](https://github.com/Zabooby/mpv-config/blob/main/portable_config/mpv.conf) and 2 other files in the [script-opts](https://github.com/Zabooby/mpv-config/tree/main/portable_config/script-opts) folder (detailed below), to match where the relevant files/folders exist on your pc. 
-* **Adjust any settings in [mpv.conf](https://github.com/Zabooby/mpv-config/blob/main/portable_config/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
+* **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/portable_config/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
 * You are good to go. Go watch some videos!
 
-After following the steps above, your mpv folder should have the following structure:
+After following the steps above, your mpv folder should have the following structure (not complete):
 
 ## File Structure (on Windows)
 
@@ -174,13 +173,13 @@ mpv
 ```
 
 ## Key Bindings
-Custom key bindings can be added/edited in the [input.conf](https://github.com/Zabooby/mpv-config/blob/main/portable_config/input.conf) file. Refer to the [manual](https://mpv.io/manual/master/) and [uosc](https://github.com/tomasklaen/uosc#commands) commands for making any changes. Default key bindings can be seen from the [input.conf](https://github.com/Zabooby/mpv-config/blob/main/portable_config/input.conf) file but most of the player functions can be used through the menu accessed by `Right Click` and the buttons above the timeline as seen in the image above.
+Custom key bindings can be added/edited in the [input.conf](https://github.com/handy1928/mpv/blob/main/portable_config/input.conf) file. Refer to the [manual](https://mpv.io/manual/master/) and [uosc](https://github.com/tomasklaen/uosc#commands) commands for making any changes. Default key bindings can be seen from the [input.conf](https://github.com/handy1928/mpv/blob/main/portable_config/input.conf) file but most of the player functions can be used through the menu accessed by `Right Click` and the buttons above the timeline as seen in the image above.
 
 ## Useful Links
 
 * [mpv wiki](https://github.com/mpv-player/mpv/wiki) - Official wiki with links to user scripts, FAQ's and much more.
 * [Mathematical evaluation of various scalers](https://artoriuz.github.io/blog/mpv_upscaling.html) - My config uses the best scalers/settings from this analysis.
-* [To-do's](https://github.com/users/Zabooby/projects/1) - Just a list of things I plan to test, implement or improve in my config, (click on items for more information). 
 * [mpv manual](https://mpv.io/manual/master/) - Lists all the settings and configuration options available including video/audio filters, scripting, and countless other customizations. 
+* [watch-later-options](https://github.com/mpv-player/mpv/blob/master/options/options.c) - Code in mpv where all watch-later-options are stored. Used to remove the ones i don't want to save.
 
-Huge shoutout to [@he2a](https://github.com/he2a) for their [config,](https://github.com/he2a/mpv-config) lots of my setup is inspired by it.
+Thank you very much to [@Zabooby](https://github.com/Zabooby). This config is forked from [here](https://github.com/Zabooby/mpv-config). I edited and added a lot to fit my needs.
