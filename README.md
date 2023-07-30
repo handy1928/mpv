@@ -31,10 +31,10 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - - -
 Peronally added in scripts:
 
-* Show all Tracks (Video, Audio, Subtitles) in one uosc menu
-* Added Bitrate shown in Track view loaded via MediaInfo ([MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows) has to be installed)
-* Added ability to sort by key length in M-x Keybind Menu
-* Script to calculate the diffrence between 2 times and copy to clipboard (my workflow: 2 mpv windows open Ctrl+c in 1 to copy the time. Ctrl+v in 2 to get the diffrence of both times in clipboard)
+* Show all Tracks (Video, Audio, Subtitles) in one uosc menu.
+* Added Bitrate shown in Track view loaded via MediaInfo. ([MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows) has to be installed)
+* Added ability to sort by key length in M-x Keybind Menu.
+* Script to calculate the diffrence between 2 times and copy to clipboard. (my workflow: 2 mpv windows open Ctrl+c in 1 to copy the time. Ctrl+v in 2 to get the diffrence of both times in clipboard)
 
 ## Shaders
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
