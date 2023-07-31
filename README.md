@@ -7,6 +7,7 @@
 Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-source, & cross-platform media player, with a focus on quality and a practical yet comfortable viewing experience. Contains tuned profiles (for up/downscaling, live action & anime), custom key bindings, a GUI, as well as multiple scripts, shaders & filters serving different functions. Suitable for both high and low-end computers (with some tweaks).
 
 ## Scripts
+- [osc-tethys](https://github.com/po5/mpv-osc-tethys/tree/thumbfast) - Tethys osc with thumbfast support.
 - [uosc](https://github.com/darsain/uosc) - Adds a minimalist but highly customizable gui.
 - [thumbfast](https://github.com/po5/thumbfast) - High-performance on-the-fly thumbnailer.
 - [memo](https://github.com/po5/memo) - Saves watch history, and displays it in a nice menu, integrated with uosc. 
