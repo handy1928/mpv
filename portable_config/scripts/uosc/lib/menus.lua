@@ -279,7 +279,10 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
 					h(track.codec:sub(1,1):upper() .. track.codec:sub(2))
 					if track.lang then h(track.lang:upper()) end
-					if media_info_str then h(getBitrate(media_info_str)) end
+					if media_info_str then
+						bitrate = getBitrate(media_info_str)
+						if bitrate and bitrate ~= '' then h(bitrate) end
+					end
 				end
 				if track.type == 'video' then
 					if track.lang then h(track.lang:upper()) end
@@ -295,7 +298,10 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track['demux-h'] then
 						h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p'))
 					end
-					if media_info_str then h(getBitrate(media_info_str)) end
+					if media_info_str then
+						bitrate = getBitrate(media_info_str)
+						if bitrate and bitrate ~= '' then h(bitrate) end
+					end
 				end
 
 				items[#items + 1] = {
