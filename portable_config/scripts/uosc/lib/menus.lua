@@ -255,48 +255,27 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		end
 
 		local tmp_track_type = ''
-		local track_type_number = 0
 		local index_var = 3
 		local vid_index = 1
 		local aid_index = 1
 		local sid_index = 1
 		for _, track in ipairs(tracklist) do
-			if track_type == 'all' and track.type ~= tmp_track_type then
-				tmp_track_type = track.type
-				name = track.type
-				if track.type == 'sub' then
-					name = '—————————————— Subtitles ——————————————'
-					track_type_number = 3
-				end
-				if track.type == 'audio' then
-					name = '———————————————— Audio ————————————————'
-					track_type_number = 2
-				end
-				if track.type == 'video' then
-					name = '———————————————— Video ————————————————'
-					track_type_number = 1
-				end
-				items[#items + 1] = {
-					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
-				}
-			end
-
 			if track_type == 'all' or track.type == track_type then
 				local hint_values = {}
 				local function h(value) hint_values[#hint_values + 1] = value end
 
 				if track.type == 'sub' then
+					if track.external then h(t('External')) end
 					if track.forced then h(t('Forced')) end
 					if track.default then h(t('Default')) end
-					if track.external then h(t('External')) end
 					if track.lang then h(track.lang:upper()) end
 					h(track.codec:upper())
 					sid_index = sid_index + 1
 				end
 				if track.type == 'audio' then
+					if track.external then h(t('External')) end
 					if track.forced then h(t('Forced')) end
 					if track.default then h(t('Default')) end
-					if track.external then h(t('External')) end
 					if track['demux-channel-count'] then h(t(track['demux-channel-count'] == 1 and '%s Channel' or '%s Channels', track['demux-channel-count'])) end
 					if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
 					h(track.codec:sub(1,1):upper() .. track.codec:sub(2))
@@ -309,9 +288,9 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				end
 				if track.type == 'video' then
 					if track.lang then h(track.lang:upper()) end
+					if track.external then h(t('External')) end
 					if track.forced then h(t('Forced')) end
 					if track.default then h(t('Default')) end
-					if track.external then h(t('External')) end
 					if vid_string and #vid_string >= vid_index then
 						h(getVideoCodec(vid_string[vid_index]))
 					else
@@ -328,12 +307,39 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					vid_index = vid_index + 1
 				end
 
-				items[#items + 1] = {
-					title = (track.title and track.title or t('Track %s', track.id)),
-					hint = table.concat(hint_values, ', '),
-					value = track.id * 10 + track_type_number,
-					active = track.selected,
-				}
+				if track_type == 'all' then
+					if track.type == 'sub' then
+						sid_string[sid_index-1] = {
+							title = (track.title and track.title or t('Track %s', track.id)),
+							hint = table.concat(hint_values, ', '),
+							value = track.id * 10 + 3,
+							active = track.selected,
+						}
+					end
+					if track.type == 'audio' then
+						aid_string[aid_index-1] = {
+							title = (track.title and track.title or t('Track %s', track.id)),
+							hint = table.concat(hint_values, ', '),
+							value = track.id * 10 + 2,
+							active = track.selected,
+						}
+					end
+					if track.type == 'video' then
+						vid_string[vid_index-1] = {
+							title = (track.title and track.title or t('Track %s', track.id)),
+							hint = table.concat(hint_values, ', '),
+							value = track.id * 10 + 1,
+							active = track.selected,
+						}
+					end
+				else
+					items[#items + 1] = {
+						title = (track.title and track.title or t('Track %s', track.id)),
+						hint = table.concat(hint_values, ', '),
+						value = track.id * 10 + 0,
+						active = track.selected,
+					}
+				end
 
 				if track.selected then
 					if disabled_item then disabled_item.active = false end
@@ -341,6 +347,31 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				end
 			end
 			index_var = index_var + 1
+		end
+
+		if track_type == 'all' then
+			name = '———————————————— Video ————————————————'
+			items[#items + 1] = {
+				title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+			}
+			local index_var = 1
+			for _, item in ipairs(vid_string) do
+				items[#items + 1] = item
+			end
+			name = '———————————————— Audio ————————————————'
+			items[#items + 1] = {
+				title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+			}
+			for _, item in ipairs(aid_string) do
+				items[#items + 1] = item
+			end
+			name = '—————————————— Subtitles ——————————————'
+			items[#items + 1] = {
+				title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+			}
+			for _, item in ipairs(sid_string) do
+				items[#items + 1] = item
+			end
 		end
 
 		return items, active_index or first_item_index
