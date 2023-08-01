@@ -1,6 +1,6 @@
 local Element = require('elements/Element')
 
----@alias ButtonProps {icon: string; on_click: function; anchor_id?: string; active?: boolean; badge?: string|number; foreground?: string; background?: string; tooltip?: string}
+---@alias ButtonProps {icon: string; on_click: function; anchor_id?: string; active?: boolean; badge?: string|number; foreground?: string; background?: string; tooltip?: string; on_wheel_up: function; on_wheel_down: function}
 
 ---@class Button : Element
 local Button = class(Element)
@@ -19,6 +19,8 @@ function Button:init(id, props)
 	self.background = props.background or bg
 	---@type fun()
 	self.on_click = props.on_click
+	self.on_wheel_up = props.on_wheel_up
+	self.on_wheel_down = props.on_wheel_down
 	Element.init(self, id, props)
 end
 
@@ -30,12 +32,17 @@ function Button:handle_cursor_down()
 	-- than picks up this click event we are in right now, and instantly closes itself.
 	mp.add_timeout(0.01, self.on_click)
 end
+function Button:handle_wheel_up() mp.add_timeout(0.01, self.on_wheel_up) end
+function Button:handle_wheel_down() mp.add_timeout(0.01, self.on_wheel_down) end
+
 
 function Button:render()
 	local visibility = self:get_visibility()
 	if visibility <= 0 then return end
 	if self.proximity_raw == 0 then
 		cursor.on_primary_down = function() self:handle_cursor_down() end
+		cursor.on_wheel_down = function() self:handle_wheel_down() end
+		cursor.on_wheel_up = function() self:handle_wheel_up() end
 	end
 
 	local ass = assdraw.ass_new()

@@ -22,8 +22,8 @@ function Controls:init()
 	-- Serialize control elements
 	local shorthands = {
 		menu = 'command:menu:script-binding uosc/menu-blurred?Menu',
-		subtitles = 'command:subtitles:script-binding uosc/subtitles#sub>0?Subtitles',
-		audio = 'command:graphic_eq:script-binding uosc/audio#audio>1?Audio',
+		subtitles = 'command:subtitles:script-binding uosc/subtitles:cycle sub down:cycle sub#sub>0?Subtitles',
+		audio = 'command:graphic_eq:script-binding uosc/audio:cycle audio down:cycle audio#audio>1?Audio',
 		['audio-device'] = 'command:speaker:script-binding uosc/audio-device?Audio device',
 		video = 'command:theaters:script-binding uosc/video#video>1?Video',
 		playlist = 'command:list_alt:script-binding uosc/playlist?Playlist',
@@ -99,9 +99,9 @@ function Controls:init()
 		elseif kind == 'gap' then
 			table_assign(control, {sizing = 'dynamic', scale = 1, ratio = params[1] or 0.3, ratio_min = 0})
 		elseif kind == 'command' then
-			if #params ~= 2 then
+			if #params > 4 and #params < 2 then
 				mp.error(string.format(
-					'command button needs 2 parameters, %d received: %s', #params, table.concat(params, '/')
+					'command button needs 2-4 parameters, %d received: %s', #params, table.concat(params, '/')
 				))
 			else
 				local element = Button:new('control_' .. i, {
@@ -110,6 +110,8 @@ function Controls:init()
 					on_click = function() mp.command(params[2]) end,
 					tooltip = tooltip,
 					count_prop = 'sub',
+					on_wheel_up = function() if params[3] then mp.command(params[3]) end end,
+					on_wheel_down = function() if params[4] then mp.command(params[4]) end end,
 				})
 				table_assign(control, {element = element, sizing = 'static', scale = 1, ratio = 1})
 				if badge then self:register_badge_updater(badge, element) end
