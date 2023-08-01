@@ -220,11 +220,10 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			media_info_table = mysplit(media_info_string,'§')
 		end
 
+		vid_string={}
+		aid_string={}
+		sid_string={}
 		if media_info_table then
-			vid_string={}
-			aid_string={}
-			sid_string={}
-
 			for _, track in ipairs(media_info_table) do
 				if track:sub(1,1) == 'V' then
 					table.insert(vid_string, track:sub(3))
@@ -234,6 +233,9 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				end
 				if track:sub(1,1) == 'S' then
 					table.insert(sid_string, track:sub(3))
+				end
+				if track:sub(1,1) == 'G' then
+					container = track:sub(3)
 				end
 			end
 		end
@@ -303,38 +305,27 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					vid_index = vid_index + 1
 				end
 
+				local item = {
+					title = (track.title and track.title or t('Track %s', track.id)),
+					hint = table.concat(hint_values, ', '),
+					value = track.id * 10 + 0,
+					active = track.selected,
+				}
 				if track_type == 'all' then
-					if track.type == 'sub' then
-						sid_string[sid_index-1] = {
-							title = (track.title and track.title or t('Track %s', track.id)),
-							hint = table.concat(hint_values, ', '),
-							value = track.id * 10 + 3,
-							active = track.selected,
-						}
+					if track.type == 'video' then
+						vid_string[vid_index-1] = item
+						vid_string[vid_index-1].value = track.id * 10 + 1
 					end
 					if track.type == 'audio' then
-						aid_string[aid_index-1] = {
-							title = (track.title and track.title or t('Track %s', track.id)),
-							hint = table.concat(hint_values, ', '),
-							value = track.id * 10 + 2,
-							active = track.selected,
-						}
+						aid_string[aid_index-1] = item
+						aid_string[aid_index-1].value = track.id * 10 + 2
 					end
-					if track.type == 'video' then
-						vid_string[vid_index-1] = {
-							title = (track.title and track.title or t('Track %s', track.id)),
-							hint = table.concat(hint_values, ', '),
-							value = track.id * 10 + 1,
-							active = track.selected,
-						}
+					if track.type == 'sub' then
+						sid_string[sid_index-1] = item
+						sid_string[sid_index-1].value = track.id * 10 + 3
 					end
 				else
-					items[#items + 1] = {
-						title = (track.title and track.title or t('Track %s', track.id)),
-						hint = table.concat(hint_values, ', '),
-						value = track.id * 10 + 0,
-						active = track.selected,
-					}
+					items[#items + 1] = item
 				end
 
 				if track.selected then
@@ -345,32 +336,26 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		end
 
 		if track_type == 'all' then
-			if #vid_string >= 1 then
-				name = '———————————————— Video ————————————————'
+			function addItem(string)
 				items[#items + 1] = {
-					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+					title = t(string), bold = true, separator = true, active = false, selectable = false, align='center'
 				}
 			end
+			if #vid_string >= 1 then addItem('———————————————— Video ————————————————') end
 			for _, item in ipairs(vid_string) do
 				items[#items + 1] = item
 			end
-			if #aid_string >= 1 then
-				name = '———————————————— Audio ————————————————'
-				items[#items + 1] = {
-					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
-				}
-			end
+			if #aid_string >= 1 then addItem('———————————————— Audio ————————————————') end
 			for _, item in ipairs(aid_string) do
 				items[#items + 1] = item
 			end
-			if #sid_string >= 1 then
-				name = '—————————————— Subtitles ——————————————'
-				items[#items + 1] = {
-					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
-				}
-			end
+			if #sid_string >= 1 then addItem('—————————————— Subtitles ——————————————') end
 			for _, item in ipairs(sid_string) do
 				items[#items + 1] = item
+			end
+			if media_info_table then
+				addItem('—————————————— Container ——————————————')
+				addItem(container)
 			end
 		end
 
