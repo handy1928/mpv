@@ -30,7 +30,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
 - [waveform](https://github.com/MikelSotomonte/mpv-waveform/tree/main) - Displays a waveform of the video in real-time using ffmpeg waveforms.
 - - -
-Peronally added in scripts:
+Personally added in scripts:
 
 * Show all Tracks (Video, Audio, Subtitles) in one uosc menu.
 * Added Bitrate shown in Track view loaded via MediaInfo. ([MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows) has to be installed)
