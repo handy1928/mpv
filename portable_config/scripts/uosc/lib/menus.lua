@@ -252,7 +252,6 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			items[#items + 1] = disabled_item
 		end
 
-		local tmp_track_type = ''
 		local vid_index = 1
 		local aid_index = 1
 		local sid_index = 1
