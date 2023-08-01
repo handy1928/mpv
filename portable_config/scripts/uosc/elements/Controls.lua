@@ -209,7 +209,10 @@ function Controls:register_badge_updater(badge, element, max)
 	local function handler(_, value)
 		local new_value = serializer(value) --[[@as nil|string|integer]]
 		local value_number = tonumber(new_value)
-		if value_number then new_value = value_number > limit and value_number or nil end
+		if value_number then
+			new_value = value_number > limit and value_number or nil
+			new_value = prop == 'chapter' and value_number + 1 or value_number
+		end
 		if max then
 			element.badgeMax = new_value
 		else
