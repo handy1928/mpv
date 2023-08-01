@@ -220,6 +220,26 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			media_info_table = mysplit(media_info_string,'§')
 		end
 
+		if media_info_table then
+			vid_string={}
+			aid_string={}
+			sid_string={}
+
+			local index_var = 1
+			for _, track in ipairs(media_info_table) do
+				if track:sub(1,1) == 'V' then
+					table.insert(vid_string, track:sub(3))
+				end
+				if track:sub(1,1) == 'A' then
+					table.insert(aid_string, track:sub(3))
+				end
+				if track:sub(1,1) == 'S' then
+					table.insert(sid_string, track:sub(3))
+				end
+				index_var = index_var + 1
+			end
+		end
+
 		local first_item_index = #items + 1
 		local active_index = nil
 		local disabled_item = nil
@@ -234,22 +254,27 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			items[#items + 1] = disabled_item
 		end
 
-		tmp_track_type = ''
-		track_type_number = 0
-		index_var = 3
+		local tmp_track_type = ''
+		local track_type_number = 0
+		local index_var = 3
+		local vid_index = 1
+		local aid_index = 1
+		local sid_index = 1
 		for _, track in ipairs(tracklist) do
 			if track_type == 'all' and track.type ~= tmp_track_type then
 				tmp_track_type = track.type
-				track_type_number = track_type_number + 1
 				name = track.type
 				if track.type == 'sub' then
 					name = '—————————————— Subtitles ——————————————'
+					track_type_number = 3
 				end
 				if track.type == 'audio' then
 					name = '———————————————— Audio ————————————————'
+					track_type_number = 2
 				end
 				if track.type == 'video' then
 					name = '———————————————— Video ————————————————'
+					track_type_number = 1
 				end
 				items[#items + 1] = {
 					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
@@ -259,10 +284,6 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			if track_type == 'all' or track.type == track_type then
 				local hint_values = {}
 				local function h(value) hint_values[#hint_values + 1] = value end
-				media_info_str = nil
-				if media_info_table and index_var <= #media_info_table then
-					media_info_str = media_info_table[index_var]:sub(3)
-				end
 
 				if track.type == 'sub' then
 					if track.forced then h(t('Forced')) end
@@ -270,6 +291,7 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track.external then h(t('External')) end
 					if track.lang then h(track.lang:upper()) end
 					h(track.codec:upper())
+					sid_index = sid_index + 1
 				end
 				if track.type == 'audio' then
 					if track.forced then h(t('Forced')) end
@@ -279,18 +301,19 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
 					h(track.codec:sub(1,1):upper() .. track.codec:sub(2))
 					if track.lang then h(track.lang:upper()) end
-					if media_info_str then
-						bitrate = getBitrate(media_info_str)
+					if aid_string and #aid_string >= aid_index then
+						bitrate = getBitrate(aid_string[aid_index])
 						if bitrate and bitrate ~= '' then h(bitrate) end
 					end
+					aid_index = aid_index + 1
 				end
 				if track.type == 'video' then
 					if track.lang then h(track.lang:upper()) end
 					if track.forced then h(t('Forced')) end
 					if track.default then h(t('Default')) end
 					if track.external then h(t('External')) end
-					if media_info_str then
-						h(getVideoCodec(media_info_str))
+					if vid_string and #vid_string >= vid_index then
+						h(getVideoCodec(vid_string[vid_index]))
 					else
 						h(track.codec:upper())
 					end
@@ -298,10 +321,11 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track['demux-h'] then
 						h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p'))
 					end
-					if media_info_str then
-						bitrate = getBitrate(media_info_str)
+					if vid_string and #vid_string >= vid_index then
+						bitrate = getBitrate(vid_string[vid_index])
 						if bitrate and bitrate ~= '' then h(bitrate) end
 					end
+					vid_index = vid_index + 1
 				end
 
 				items[#items + 1] = {
