@@ -350,25 +350,31 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		end
 
 		if track_type == 'all' then
-			name = '———————————————— Video ————————————————'
-			items[#items + 1] = {
-				title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
-			}
 			local index_var = 1
+			if #vid_string >= 1 then
+				name = '———————————————— Video ————————————————'
+				items[#items + 1] = {
+					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+				}
+			end
 			for _, item in ipairs(vid_string) do
 				items[#items + 1] = item
 			end
-			name = '———————————————— Audio ————————————————'
-			items[#items + 1] = {
-				title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
-			}
+			if #aid_string >= 1 then
+				name = '———————————————— Audio ————————————————'
+				items[#items + 1] = {
+					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+				}
+			end
 			for _, item in ipairs(aid_string) do
 				items[#items + 1] = item
 			end
-			name = '—————————————— Subtitles ——————————————'
-			items[#items + 1] = {
-				title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
-			}
+			if #sid_string >= 1 then
+				name = '—————————————— Subtitles ——————————————'
+				items[#items + 1] = {
+					title = t(name), bold = true, separator = true, active = false, selectable = false, align='center'
+				}
+			end
 			for _, item in ipairs(sid_string) do
 				items[#items + 1] = item
 			end
