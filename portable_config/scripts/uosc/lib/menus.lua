@@ -383,7 +383,7 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		else
 			if value then
 				value = tostring(value)
-				id = tonumber(value:sub(1,1))
+				id = tonumber(value:sub(1,-2))
 				a_track_type = tonumber(value:sub(-1))
 
 				if a_track_type == 1 then
