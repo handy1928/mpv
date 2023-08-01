@@ -225,7 +225,6 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			aid_string={}
 			sid_string={}
 
-			local index_var = 1
 			for _, track in ipairs(media_info_table) do
 				if track:sub(1,1) == 'V' then
 					table.insert(vid_string, track:sub(3))
@@ -236,7 +235,6 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				if track:sub(1,1) == 'S' then
 					table.insert(sid_string, track:sub(3))
 				end
-				index_var = index_var + 1
 			end
 		end
 
@@ -255,7 +253,6 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		end
 
 		local tmp_track_type = ''
-		local index_var = 3
 		local vid_index = 1
 		local aid_index = 1
 		local sid_index = 1
@@ -346,11 +343,9 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					active_index = #items
 				end
 			end
-			index_var = index_var + 1
 		end
 
 		if track_type == 'all' then
-			local index_var = 1
 			if #vid_string >= 1 then
 				name = '———————————————— Video ————————————————'
 				items[#items + 1] = {
