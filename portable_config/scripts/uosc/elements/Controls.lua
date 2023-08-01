@@ -22,12 +22,12 @@ function Controls:init()
 	-- Serialize control elements
 	local shorthands = {
 		menu = 'command:menu:script-binding uosc/menu-blurred?Menu',
-		subtitles = 'command:subtitles:script-binding uosc/subtitles:cycle sub down:cycle sub#sub>0?Subtitles',
-		audio = 'command:graphic_eq:script-binding uosc/audio:cycle audio down:cycle audio#audio>1?Audio',
+		subtitles = 'command:subtitles:script-binding uosc/subtitles:cycle sub down:cycle sub#sid#sub?Subtitles',
+		audio = 'command:graphic_eq:script-binding uosc/audio:cycle audio down:cycle audio#aid#audio>1?Audio',
 		['audio-device'] = 'command:speaker:script-binding uosc/audio-device?Audio device',
-		video = 'command:theaters:script-binding uosc/video#video>1?Video',
+		video = 'command:theaters:script-binding uosc/video#vid#video>1?Video',
 		playlist = 'command:list_alt:script-binding uosc/playlist?Playlist',
-		chapters = 'command:bookmark:script-binding uosc/chapters:add chapter -1:add chapter 1#chapters>0?Chapters',
+		chapters = 'command:bookmark:script-binding uosc/chapters:add chapter -1:add chapter 1#chapter#chapters>0?Chapters',
 		['editions'] = 'command:bookmarks:script-binding uosc/editions:cycle edition down:cycle edition#editions>1?Editions',
 		['stream-quality'] = 'command:high_quality:script-binding uosc/stream-quality?Stream quality',
 		['open-file'] = 'command:file_open:script-binding uosc/open-file?Open file',
@@ -71,6 +71,7 @@ function Controls:init()
 		local config_badge = split(config, ' *# *')
 		config = config_badge[1]
 		local badge = config_badge[2]
+		local badgeMax = config_badge[3]
 		local parts = split(config, ' *: *')
 		local kind, params = parts[1], itable_slice(parts, 2)
 
@@ -115,6 +116,7 @@ function Controls:init()
 				})
 				table_assign(control, {element = element, sizing = 'static', scale = 1, ratio = 1})
 				if badge then self:register_badge_updater(badge, element) end
+				if badgeMax then self:register_badge_updater(badgeMax, element, true) end
 			end
 		elseif kind == 'cycle' then
 			if #params ~= 3 then
@@ -142,6 +144,7 @@ function Controls:init()
 				})
 				table_assign(control, {element = element, sizing = 'static', scale = 1, ratio = 1})
 				if badge then self:register_badge_updater(badge, element) end
+				if badgeMax then self:register_badge_updater(badgeMax, element, true) end
 			end
 		elseif kind == 'speed' then
 			if not Elements.speed then
@@ -184,7 +187,7 @@ end
 
 ---@param badge string
 ---@param element Element An element that supports `badge` property.
-function Controls:register_badge_updater(badge, element)
+function Controls:register_badge_updater(badge, element, max)
 	local prop_and_limit = split(badge, ' *> *')
 	local prop, limit = prop_and_limit[1], tonumber(prop_and_limit[2] or -1)
 	local observable_name, serializer, is_external_prop = prop, nil, false
@@ -207,7 +210,11 @@ function Controls:register_badge_updater(badge, element)
 		local new_value = serializer(value) --[[@as nil|string|integer]]
 		local value_number = tonumber(new_value)
 		if value_number then new_value = value_number > limit and value_number or nil end
-		element.badge = new_value
+		if max then
+			element.badgeMax = new_value
+		else
+			element.badge = new_value
+		end
 		request_render()
 	end
 

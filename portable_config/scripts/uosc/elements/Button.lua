@@ -1,6 +1,6 @@
 local Element = require('elements/Element')
 
----@alias ButtonProps {icon: string; on_click: function; anchor_id?: string; active?: boolean; badge?: string|number; foreground?: string; background?: string; tooltip?: string; on_wheel_up: function; on_wheel_down: function}
+---@alias ButtonProps {icon: string; on_click: function; anchor_id?: string; active?: boolean; badge?: string|number; foreground?: string; background?: string; tooltip?: string; on_wheel_up: function; on_wheel_down: function; badgeMax?: string|number}
 
 ---@class Button : Element
 local Button = class(Element)
@@ -21,6 +21,7 @@ function Button:init(id, props)
 	self.on_click = props.on_click
 	self.on_wheel_up = props.on_wheel_up
 	self.on_wheel_down = props.on_wheel_down
+	self.badgeMax = props.badgeMax
 	Element.init(self, id, props)
 end
 
@@ -65,16 +66,19 @@ function Button:render()
 	-- Badge
 	local icon_clip
 	if self.badge then
-		local badge_font_size = self.font_size * 0.6
+		local badge_font_size = self.font_size * 0.55
+		if self.badgeMax then
+			badge_font_size = self.font_size * 0.45
+		end
 		local badge_opts = {size = badge_font_size, color = background, opacity = visibility}
-		local badge_width = text_width(self.badge, badge_opts)
+		local badge_width = text_width(self.badge .. (self.badgeMax and '/' .. self.badgeMax or ''), badge_opts)
 		local width, height = math.ceil(badge_width + (badge_font_size / 7) * 2), math.ceil(badge_font_size * 0.93)
 		local bx, by = self.bx - 1, self.by - 1
 		ass:rect(bx - width, by - height, bx, by, {
 			color = foreground, radius = 2, opacity = visibility,
 			border = self.active and 0 or 1, border_color = background,
 		})
-		ass:txt(bx - width / 2, by - height / 2, 5, self.badge, badge_opts)
+		ass:txt(bx - width / 2, by - height / 2, 5, self.badge .. (self.badgeMax and '/' .. self.badgeMax or ''), badge_opts)
 
 		local clip_border = math.max(self.font_size / 20, 1)
 		local clip_path = assdraw.ass_new()
