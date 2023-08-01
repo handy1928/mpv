@@ -89,7 +89,11 @@ function Speed:handle_cursor_up()
 	if self.proximity_raw == 0 then
 		-- Reset speed on short clicks
 		if self.dragging and math.abs(self.dragging.distance) < 6 and mp.get_time() - self.dragging.start_time < 0.15 then
-			mp.set_property_native('speed', 1)
+			if state.speed == 1 then
+				mp.set_property_native('speed', 2)
+			else
+				mp.set_property_native('speed', 1)
+			end
 		end
 	end
 	self.dragging = nil
