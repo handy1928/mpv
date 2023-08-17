@@ -59,7 +59,7 @@
     "player_name": "PC",
     "pre_media_cmd": null,
     "prefer_transcode_to_h265": false,
-    "raise_mpv": false,
+    "raise_mpv": true,
     "remote_direct_paths": false,
     "remote_kbps": 10000,
     "sanitize_output": true,
