@@ -108,6 +108,7 @@ defaults = {
 	chapter_range_patterns = 'openings:オープニング;endings:エンディング',
 	languages = 'slang,en',
 	create_thumbnails = true,
+	use_media_info = true,
 }
 options = table_shallow_copy(defaults)
 opt.read_options(options, 'uosc')

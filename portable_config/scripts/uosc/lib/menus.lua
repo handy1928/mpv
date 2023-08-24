@@ -82,7 +82,9 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 				title = t('Load'), bold = true, italic = true, hint = t('open file'), value = '{load}', separator = true,
 			}
 		end
-		local media_info_string = get_media_info()
+		if options.use_media_info then
+			media_info_string = get_media_info()
+		end
 		if media_info_string then
 			media_info_string = string.gsub(media_info_string, "\\n", "§")
 			media_info_table = split(media_info_string,'§')
@@ -210,21 +212,17 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					value = track.id * 10 + 0,
 					active = track.selected,
 				}
-				if track_type == 'all' then
-					if track.type == 'video' then
-						vid_string[vid_index-1] = item
-						vid_string[vid_index-1].value = track.id * 10 + 1
-					end
-					if track.type == 'audio' then
-						aid_string[aid_index-1] = item
-						aid_string[aid_index-1].value = track.id * 10 + 2
-					end
-					if track.type == 'sub' then
-						sid_string[sid_index-1] = item
-						sid_string[sid_index-1].value = track.id * 10 + 3
-					end
-				else
-					items[#items + 1] = item
+				if track.type == 'video' then
+					vid_string[vid_index-1] = item
+					vid_string[vid_index-1].value = track.id * 10 + 1
+				end
+				if track.type == 'audio' then
+					aid_string[aid_index-1] = item
+					aid_string[aid_index-1].value = track.id * 10 + 2
+				end
+				if track.type == 'sub' then
+					sid_string[sid_index-1] = item
+					sid_string[sid_index-1].value = track.id * 10 + 3
 				end
 
 				if track.selected then
@@ -234,107 +232,110 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 			end
 		end
 
-		if track_type == 'all' then
-
-			video_order = {}
-			table.insert(video_order, "Language")
-			table.insert(video_order, "External")
-			table.insert(video_order, "Forced")
-			table.insert(video_order, "Default")
-			table.insert(video_order, "Scan-Type-Order")
-			table.insert(video_order, "Codec")
-			table.insert(video_order, "Codec-Profile")
-			table.insert(video_order, "HDR-DV")
-			table.insert(video_order, "FPS")
-			table.insert(video_order, "Dimensions")
-			table.insert(video_order, "Stream-Size")
-			table.insert(video_order, "Bitrate")
-
-			audio_order = {}
-			table.insert(audio_order, "External")
-			table.insert(audio_order, "Forced")
-			table.insert(audio_order, "Default")
-			table.insert(audio_order, "Language")
-			table.insert(audio_order, "Codec")
-			table.insert(audio_order, "Channel-Count")
-			table.insert(audio_order, "Samplerate")
-			table.insert(audio_order, "Stream-Size")
-			table.insert(audio_order, "Bitrate")
-
-			subtitle_order = {}
-			table.insert(subtitle_order, "External")
-			table.insert(subtitle_order, "Forced")
-			table.insert(subtitle_order, "Default")
-			table.insert(subtitle_order, "Stream-Size")
-			table.insert(subtitle_order, "Language")
-			table.insert(subtitle_order, "Codec")
-
-			function addByOrder(insertTable, order)
-				-- get biggest length
-				maxLength = {}
-				for _, item in ipairs(insertTable) do
-					hint = item.hint
-					for _, item in ipairs(order) do
-						if not maxLength[item .. '-length'] or maxLength[item .. '-length'] < (hint[item] and hint[item]:len() or 0) then
-							if hint[item] then
-								maxLength[item .. '-length'] = hint[item]:len()
-							else
-								maxLength[item .. '-length'] = 0
-							end
-						end
-					end
-				end
 
 
-				function padMaxLength(string, maxLength)
-					if not string then
-						string = ''
-					end
-					while string:len() < maxLength do
-						string = ' ' .. string
-					end
-					return string
-				end
+		video_order = {}
+		table.insert(video_order, "Language")
+		table.insert(video_order, "External")
+		table.insert(video_order, "Forced")
+		table.insert(video_order, "Default")
+		table.insert(video_order, "Scan-Type-Order")
+		table.insert(video_order, "Codec")
+		table.insert(video_order, "Codec-Profile")
+		table.insert(video_order, "HDR-DV")
+		table.insert(video_order, "FPS")
+		table.insert(video_order, "Dimensions")
+		table.insert(video_order, "Stream-Size")
+		table.insert(video_order, "Bitrate")
 
-				-- create hint with spaces
-				for _, item in ipairs(insertTable) do
-					hint = item.hint
-					local newHint = ''
-					for _, item in ipairs(order) do
-						if newHint == '' then
-							newHint = padMaxLength(hint[item], maxLength[item .. '-length'])
+		audio_order = {}
+		table.insert(audio_order, "External")
+		table.insert(audio_order, "Forced")
+		table.insert(audio_order, "Default")
+		table.insert(audio_order, "Language")
+		table.insert(audio_order, "Codec")
+		table.insert(audio_order, "Channel-Count")
+		table.insert(audio_order, "Samplerate")
+		table.insert(audio_order, "Stream-Size")
+		table.insert(audio_order, "Bitrate")
+
+		subtitle_order = {}
+		table.insert(subtitle_order, "External")
+		table.insert(subtitle_order, "Forced")
+		table.insert(subtitle_order, "Default")
+		table.insert(subtitle_order, "Stream-Size")
+		table.insert(subtitle_order, "Language")
+		table.insert(subtitle_order, "Codec")
+
+		function addByOrder(insertTable, order)
+			-- get biggest length
+			maxLength = {}
+			for _, item in ipairs(insertTable) do
+				hint = item.hint
+				for _, item in ipairs(order) do
+					if not maxLength[item .. '-length'] or maxLength[item .. '-length'] < (hint[item] and hint[item]:len() or 0) then
+						if hint[item] then
+							maxLength[item .. '-length'] = hint[item]:len()
 						else
-							newHint = newHint .. ', ' .. padMaxLength(hint[item], maxLength[item .. '-length'])
+							maxLength[item .. '-length'] = 0
 						end
 					end
-
-					newHint = trim(newHint)
-					
-					newHint = string.gsub(newHint, ", , , , ", ", ")
-					newHint = string.gsub(newHint, ", , , ", ", ")
-					newHint = string.gsub(newHint, ", , ", ", ")
-					newHint = string.gsub(newHint, "  , ", "    ")
-	
-					item.hint = newHint
-					items[#items + 1] = item
 				end
 			end
-			
-			function addItem(string)
-				items[#items + 1] = {
-					title = t(string), bold = true, separator = true, active = false, selectable = false, align='center'
-				}
+
+
+			function padMaxLength(string, maxLength)
+				if not string then
+					string = ''
+				end
+				while string:len() < maxLength do
+					string = ' ' .. string
+				end
+				return string
 			end
 
-			if #vid_string >= 1 then addItem('———————————————— Video ————————————————') end
+			-- create hint with spaces
+			for _, item in ipairs(insertTable) do
+				hint = item.hint
+				local newHint = ''
+				for _, item in ipairs(order) do
+					if newHint == '' then
+						newHint = padMaxLength(hint[item], maxLength[item .. '-length'])
+					else
+						newHint = newHint .. ', ' .. padMaxLength(hint[item], maxLength[item .. '-length'])
+					end
+				end
+
+				newHint = trim(newHint)
+				
+				newHint = string.gsub(newHint, ", , , , ", ", ")
+				newHint = string.gsub(newHint, ", , , ", ", ")
+				newHint = string.gsub(newHint, ", , ", ", ")
+				newHint = string.gsub(newHint, "  , ", "    ")
+
+				item.hint = newHint
+				items[#items + 1] = item
+			end
+		end
+		
+		function addItem(string)
+			items[#items + 1] = {
+				title = t(string), bold = true, separator = true, active = false, selectable = false, align='center'
+			}
+		end
+		if track_type == 'all' or track_type == 'video' then
+			if track_type == 'all' and #vid_string >= 1 then addItem('———————————————— Video ————————————————') end
 			addByOrder(vid_string, video_order)
-
-			if #aid_string >= 1 then addItem('———————————————— Audio ————————————————') end
+		end
+		if track_type == 'all' or track_type == 'audio' then
+			if track_type == 'all' and #aid_string >= 1 then addItem('———————————————— Audio ————————————————') end
 			addByOrder(aid_string, audio_order)
-			
-			if #sid_string >= 1 then addItem('—————————————— Subtitles ——————————————') end
+		end
+		if track_type == 'all' or track_type == 'sub' then
+			if track_type == 'all' and #sid_string >= 1 then addItem('—————————————— Subtitles ——————————————') end
 			addByOrder(sid_string, subtitle_order)
-
+		end
+		if track_type == 'all' then
 			if media_info_table then
 				addItem('—————————————— Container ——————————————')
 				addItem(container)

@@ -33,17 +33,7 @@ function trim(input)
     end
 end
 
-function split(input, sep)
-    local tbl = {}
 
-    if not is_empty(input) then
-        for str in string.gmatch(input, "([^" .. sep .. "]+)") do
-            table.insert(tbl, str)
-        end
-    end
-
-    return tbl
-end
 
 ----- file
 
