@@ -197,9 +197,9 @@ function get_media_info()
     end
 
     local media_info_format = [[General;N: %FileNameExtension%\\nG: %Format%, %FileSize/String%, %Duration/String%, %OverallBitRate/String%, %Recorded_Date%\\n
-Video;V: %Format%, %Format_Profile%, %Width%x%Height%, %BitRate/String%, %FrameRate% FPS\\n
-Audio;A: %Language/String%, %Format%, %Format_Profile%, %BitRate/String%, %Channel(s)% ch, %SamplingRate/String%, %Title%\\n
-Text;S: %Language/String%, %Format%, %Format_Profile%, %Title%\\n]]
+Video;V: %Format%, %Format_Profile%, %HDR_Format_Profile%%HDR_Format_Level%%HDR_Format_Settings%%HDR_Format_Compatibility%, %Width%x%Height%, %BitRate/String%, %FrameRate% FPS, %StreamSize/String%\\n
+Audio;A: %Language/String%, %Format%, %Format_Profile%, %BitRate/String%, %Channel(s)% ch, %SamplingRate/String%, %Title%, %StreamSize/String%\\n
+Text;S: %Language/String%, %Format%, %Format_Profile%, %Title%, %StreamSize/String%\\n]]
 
     local format_file = get_temp_dir() .. "media-info-format-2.txt"
 
@@ -221,6 +221,8 @@ Text;S: %Language/String%, %Format%, %Format_Profile%, %Title%\\n]]
     if proc_result.status == 0 then
         local output = proc_result.stdout
 
+        output = string.gsub(output, " / ", ".", 1)
+        output = string.gsub(output, " / ", ", ", 2)
         output = string.gsub(output, ", , ,", ",")
         output = string.gsub(output, ", ,", ",")
         output = string.gsub(output, ": , ", ": ")
@@ -229,6 +231,8 @@ Text;S: %Language/String%, %Format%, %Format_Profile%, %Title%\\n]]
         output = string.gsub(output, ", \\n", "\\n")
         output = string.gsub(output, "%.000 FPS", " FPS")
         output = string.gsub(output, "MPEG Audio, Layer 3", "MP3")
+        output = string.gsub(output, ", Blu%-ray / ", ", ")
+        output = string.gsub(output, "HDR10 / HDR10", "HDR10")
 
         media_info_cache[path] = output
 
