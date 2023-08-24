@@ -175,6 +175,12 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 						local hdr = formatMediainfoStringIndexNumber(vid_string[vid_index], 3)
 						if hdr and hdr ~= '' then h(hdr) end
 
+						local scanType = formatMediainfoStringIndexNumber(vid_string[vid_index], 8)
+						local scanOrder = formatMediainfoStringIndexNumber(vid_string[vid_index], 9)
+						if scanType and scanType ~= '' and scanOrder and scanOrder ~= '' then
+							h(scanType .. ', ' .. scanOrder)
+						end
+
 						local fps = formatMediainfoStringIndexNumber(vid_string[vid_index], 6)
 						if fps and fps ~= '' then h(fps) end
 

@@ -95,7 +95,7 @@ function get_media_info()
     end
 
     local media_info_format = [[General;N: %FileNameExtension%\\nG: %Format%, %FileSize/String%, %Duration/String%, %OverallBitRate/String%\\n
-Video;V: ~%Format%~, ~%Format_Profile%~, ~%HDR_Format_Profile%%HDR_Format_Level%%HDR_Format_Settings%%HDR_Format_Compatibility%~, ~%Width%x%Height%~, ~%BitRate/String%~, ~%FrameRate% FPS~, ~%StreamSize/String%~\\n
+Video;V: ~%Format%~, ~%Format_Profile%~, ~%HDR_Format_Profile%%HDR_Format_Level%%HDR_Format_Settings%%HDR_Format_Compatibility%~, ~%Width%x%Height%~, ~%BitRate/String%~, ~%FrameRate% FPS~, ~%StreamSize/String%~, ~%ScanType/String%~, ~%ScanOrder/String%~\\n
 Audio;A: ~%Language/String%~, ~%Format%~, ~%Format_Profile%~, ~%BitRate/String%~, ~%Channel(s)% Channels~, ~%SamplingRate/String%~, ~%Title%~, ~%StreamSize/String%~\\n
 Text;S: ~%Language/String%~, ~%Format%~, ~%Format_Profile%~, ~%Title%~, ~%StreamSize/String%~\\n]]
 
@@ -129,6 +129,7 @@ Text;S: ~%Language/String%~, ~%Format%~, ~%Format_Profile%~, ~%Title%~, ~%Stream
         output = string.gsub(output, "MPEG Audio, Layer 3", "MP3")
         output = string.gsub(output, ", Blu%-ray / ", ", ")
         output = string.gsub(output, "HDR10 / HDR10", "HDR10")
+        output = string.gsub(output, "Progressive", "")
 
         media_info_cache[path] = output
 
