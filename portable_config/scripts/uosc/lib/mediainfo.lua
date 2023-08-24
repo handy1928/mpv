@@ -29,7 +29,7 @@ end
 
 function trim(input)
     if not is_empty(input) then
-        return input:match "^%s*(.-)%s*$"
+        return input:match "^[%s,,]*(.-)[%s,,]*$"
     end
 end
 

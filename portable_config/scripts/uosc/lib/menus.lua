@@ -127,84 +127,86 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		local sid_index = 1
 		for _, track in ipairs(tracklist) do
 			if track_type == 'all' or track.type == track_type then
+
 				local hint_values = {}
-				local function h(value) hint_values[#hint_values + 1] = value end
 
 				if track.type == 'sub' then
-					if track.external then h(t('External')) end
-					if track.forced then h(t('Forced')) end
-					if track.default then h(t('Default')) end
+					if track.external then hint_values["External"] = 'External' end
+					if track.forced then hint_values["Forced"] = 'Forced' end
+					if track.default then hint_values["Default"] = 'Default' end
 					if sid_string and #sid_string >= sid_index then
 						streamSize = formatMediainfoStringIndexNumber(sid_string[sid_index], 5)
-						if streamSize and streamSize ~= '' then h(streamSize) end
+						if streamSize and streamSize ~= '' then hint_values["Stream-Size"] = streamSize end
 					end
-					if track.lang then h(track.lang:upper()) end
-					h(track.codec:upper())
+					if track.lang then hint_values["Language"] = track.lang:upper() end
+					hint_values["Codec"] = track.codec:upper()
 					sid_index = sid_index + 1
 				end
 				if track.type == 'audio' then
-					if track.external then h(t('External')) end
-					if track.forced then h(t('Forced')) end
-					if track.default then h(t('Default')) end
-					if track['demux-channel-count'] then h(t(track['demux-channel-count'] == 1 and '%s Channel' or '%s Channels', track['demux-channel-count'])) end
-					if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
-					h(track.codec:upper())
-					if track.lang then h(track.lang:upper()) end
+					if track.external then hint_values["External"] = 'External' end
+					if track.forced then hint_values["Forced"] = 'Forced' end
+					if track.default then hint_values["Default"] = 'Default' end
+					if track['demux-channel-count'] then hint_values["Channel-Count"] = t(track['demux-channel-count'] == 1 and '%s Channel' or '%s Channels', track['demux-channel-count']) end
+					if track['demux-samplerate'] then hint_values["Samplerate"] = string.format('%.3gkHz', track['demux-samplerate'] / 1000) end
+					hint_values["Codec"] = track.codec:upper()
+					if track.lang then hint_values["Language"] = track.lang:upper() end
 					if aid_string and #aid_string >= aid_index then
 						streamSize = formatMediainfoStringIndexNumber(aid_string[aid_index], 8)
-						if streamSize and streamSize ~= '' then h(streamSize) end
+						if streamSize and streamSize ~= '' then hint_values["Stream-Size"] = streamSize end
 					end
 					if aid_string and #aid_string >= aid_index then
 						bitrate = formatMediainfoStringIndexNumber(aid_string[aid_index], 4)
-						if bitrate and bitrate ~= '' then h(bitrate) end
+						if bitrate and bitrate ~= '' then
+							hint_values["Bitrate"] = bitrate
+						end
 					end			
 					aid_index = aid_index + 1
 				end
 				if track.type == 'video' then
-					if track.lang then h(track.lang:upper()) end
-					if track.external then h(t('External')) end
-					if track.forced then h(t('Forced')) end
-					if track.default then h(t('Default')) end
+					if track.lang then hint_values["Language"] = track.lang:upper() end
+					if track.external then hint_values["External"] = 'External' end
+					if track.forced then hint_values["Forced"] = 'Forced' end
+					if track.default then hint_values["Default"] = 'Default' end
 					if vid_string and #vid_string >= vid_index then
 						local format = formatMediainfoStringIndexNumber(vid_string[vid_index], 1)
+						if format and format ~= '' then hint_values["Codec"] = format end
+
 						local formatProfile =formatMediainfoStringIndexNumber(vid_string[vid_index], 2)
-						if format and format ~= '' and formatProfile and formatProfile ~= '' then
-							h(format .. ', ' .. formatProfile)
-						end
+						if formatProfile and formatProfile ~= '' then hint_values["Codec-Profile"] = formatProfile end
 
 						local hdr = formatMediainfoStringIndexNumber(vid_string[vid_index], 3)
-						if hdr and hdr ~= '' then h(hdr) end
+						if hdr and hdr ~= '' then hint_values["HDR-DV"] = hdr end
 
 						local scanType = formatMediainfoStringIndexNumber(vid_string[vid_index], 8)
 						local scanOrder = formatMediainfoStringIndexNumber(vid_string[vid_index], 9)
 						if scanType and scanType ~= '' and scanOrder and scanOrder ~= '' then
-							h(scanType .. ', ' .. scanOrder)
+							hint_values["Scan-Type-Order"] = scanType .. ', ' .. scanOrder
 						end
 
 						local fps = formatMediainfoStringIndexNumber(vid_string[vid_index], 6)
-						if fps and fps ~= '' then h(fps) end
+						if fps and fps ~= '' then hint_values["FPS"] = fps end
 
 						local dimensions = formatMediainfoStringIndexNumber(vid_string[vid_index], 4)
-						if dimensions and dimensions ~= '' then h(dimensions) end
+						if dimensions and dimensions ~= '' then hint_values["Dimensions"] = dimensions end
 
 						local streamSize = formatMediainfoStringIndexNumber(vid_string[vid_index], 7)
-						if streamSize and streamSize ~= '' then h(streamSize) end
+						if streamSize and streamSize ~= '' then hint_values["Stream-Size"] = streamSize end
 
 						local bitrate = formatMediainfoStringIndexNumber(vid_string[vid_index], 5)
-						if bitrate and bitrate ~= '' then h(bitrate) end
+						if bitrate and bitrate ~= '' then hint_values["Bitrate"] = bitrate end
 					else
-						h(track.codec:upper())
+						hint_values["Codec"] = track.codec:upper()
 
-						if track['demux-fps'] then h(string.format('%.5g FPS', track['demux-fps'])) end
+						if track['demux-fps'] then hint_values["FPS"] = string.format('%.5g FPS', track['demux-fps']) end
 
-						if track['demux-h'] then h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p')) end
+						if track['demux-h'] then hint_values["Dimensions"] = track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p') end
 					end
 					vid_index = vid_index + 1
 				end
 
 				local item = {
 					title = (track.title and track.title or t('Track %s', track.id)),
-					hint = table.concat(hint_values, ', '),
+					hint = hint_values,
 					value = track.id * 10 + 0,
 					active = track.selected,
 				}
@@ -233,23 +235,106 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		end
 
 		if track_type == 'all' then
+
+			video_order = {}
+			table.insert(video_order, "Language")
+			table.insert(video_order, "External")
+			table.insert(video_order, "Forced")
+			table.insert(video_order, "Default")
+			table.insert(video_order, "Scan-Type-Order")
+			table.insert(video_order, "Codec")
+			table.insert(video_order, "Codec-Profile")
+			table.insert(video_order, "HDR-DV")
+			table.insert(video_order, "FPS")
+			table.insert(video_order, "Dimensions")
+			table.insert(video_order, "Stream-Size")
+			table.insert(video_order, "Bitrate")
+
+			audio_order = {}
+			table.insert(audio_order, "External")
+			table.insert(audio_order, "Forced")
+			table.insert(audio_order, "Default")
+			table.insert(audio_order, "Language")
+			table.insert(audio_order, "Codec")
+			table.insert(audio_order, "Channel-Count")
+			table.insert(audio_order, "Samplerate")
+			table.insert(audio_order, "Stream-Size")
+			table.insert(audio_order, "Bitrate")
+
+			subtitle_order = {}
+			table.insert(subtitle_order, "External")
+			table.insert(subtitle_order, "Forced")
+			table.insert(subtitle_order, "Default")
+			table.insert(subtitle_order, "Stream-Size")
+			table.insert(subtitle_order, "Language")
+			table.insert(subtitle_order, "Codec")
+
+			function addByOrder(insertTable, order)
+				-- get biggest length
+				maxLength = {}
+				for _, item in ipairs(insertTable) do
+					hint = item.hint
+					for _, item in ipairs(order) do
+						if not maxLength[item .. '-length'] or maxLength[item .. '-length'] < (hint[item] and hint[item]:len() or 0) then
+							if hint[item] then
+								maxLength[item .. '-length'] = hint[item]:len()
+							else
+								maxLength[item .. '-length'] = 0
+							end
+						end
+					end
+				end
+
+
+				function padMaxLength(string, maxLength)
+					if not string then
+						string = ''
+					end
+					while string:len() < maxLength do
+						string = ' ' .. string
+					end
+					return string
+				end
+
+				-- create hint with spaces
+				for _, item in ipairs(insertTable) do
+					hint = item.hint
+					local newHint = ''
+					for _, item in ipairs(order) do
+						if newHint == '' then
+							newHint = padMaxLength(hint[item], maxLength[item .. '-length'])
+						else
+							newHint = newHint .. ', ' .. padMaxLength(hint[item], maxLength[item .. '-length'])
+						end
+					end
+
+					newHint = trim(newHint)
+					
+					newHint = string.gsub(newHint, ", , , , ", ", ")
+					newHint = string.gsub(newHint, ", , , ", ", ")
+					newHint = string.gsub(newHint, ", , ", ", ")
+					newHint = string.gsub(newHint, "  , ", "    ")
+	
+					item.hint = newHint
+					items[#items + 1] = item
+				end
+			end
+			
 			function addItem(string)
 				items[#items + 1] = {
 					title = t(string), bold = true, separator = true, active = false, selectable = false, align='center'
 				}
 			end
+
 			if #vid_string >= 1 then addItem('———————————————— Video ————————————————') end
-			for _, item in ipairs(vid_string) do
-				items[#items + 1] = item
-			end
+			addByOrder(vid_string, video_order)
+
 			if #aid_string >= 1 then addItem('———————————————— Audio ————————————————') end
-			for _, item in ipairs(aid_string) do
-				items[#items + 1] = item
-			end
+			addByOrder(aid_string, audio_order)
+			
 			if #sid_string >= 1 then addItem('—————————————— Subtitles ——————————————') end
-			for _, item in ipairs(sid_string) do
-				items[#items + 1] = item
-			end
+			addByOrder(sid_string, subtitle_order)
+
 			if media_info_table then
 				addItem('—————————————— Container ——————————————')
 				addItem(container)
