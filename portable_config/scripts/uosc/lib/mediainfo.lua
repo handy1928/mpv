@@ -1,16 +1,6 @@
 
 --[[
 
-    https://github.com/stax76/mpv-scripts
-
-    This script consist of various small unrelated features.
-
-    Not used code sections can be removed.
-
-    Bindings must be added manually to input.conf.
-
-
-
     Show media info on screen
     -------------------------
     Prints detailed media info on the screen.
@@ -20,38 +10,6 @@
 
     In input.conf add:
     i script-message-to misc print-media-info
-
-
-
-    Restart mpv
-    -----------
-    Restarts mpv restoring the properties path, time-pos,
-    pause and volume, the playlist is not restored.
-
-    r script-message-to misc restart-mpv
-
-
-
-    Execute Lua code
-    ----------------
-    Allows to execute Lua Code directly from input.conf.
-
-    It's necessary to add a binding to input.conf:
-    #Navigates to the last file in the playlist
-    END script-message-to misc execute-lua-code "mp.set_property_number('playlist-pos', mp.get_property_number('playlist-count') - 1)"
-
-
-
-    When seeking displays position and duration like so:
-    ----------------------------------------------------
-    70:00 / 80:00
-
-    Which is different from most players which use:
-
-    01:10:00 / 01:20:00
-
-    input.conf:
-    Right no-osd seek 5; script-message-to misc show-position
 
 ]]--
 
@@ -87,12 +45,6 @@ function split(input, sep)
     return tbl
 end
 
------ math
-
-function round(value)
-    return value >= 0 and math.floor(value + 0.5) or math.ceil(value - 0.5)
-end
-
 ----- file
 
 function file_exists(path)
@@ -118,8 +70,6 @@ function file_write(path, content)
     file:close()
 end
 
------ shared
-
 local is_windows = package.config:sub(1,1) == "\\"
 local msg = require "mp.msg"
 local utils = require "mp.utils"
@@ -132,62 +82,10 @@ function get_temp_dir()
     end
 end
 
------ Execute Lua code
-
-mp.register_script_message("execute-lua-code", function (code)
-    loadstring(code)()
-end)
-
------ Alternative seek OSD message
-
-function pad_zero(value)
-    local value = round(value)
-
-    if value > 9 then
-        return "" .. value
-    else
-        return "0" .. value
-    end
-end
-
-function format_pos(value)
-    local seconds = round(value)
-
-    if seconds < 0 then
-        seconds = 0
-    end
-
-    local pos_min_floor = math.floor(seconds / 60)
-    local sec_rest = seconds - pos_min_floor * 60
-
-    return pad_zero(pos_min_floor) .. ":" .. pad_zero(sec_rest)
-end
-
-function show_pos()
-    local position = mp.get_property_number("time-pos")
-    local duration = mp.get_property_number("duration")
-
-    if position > duration then
-        position = duration
-    end
-
-    if position ~= 0 then
-        mp.osd_message(format_pos(position) .. " / " .. format_pos(duration))
-    end
-end
-
-mp.register_script_message("show-position", function (mode)
-    mp.add_timeout(0.05, show_pos)
-end)
 
 ----- Print media info on screen
 
 local media_info_cache = {}
-
-function show_text(text, duration, font_size)
-    mp.command('show-text "${osd-ass-cc/0}{\\\\fs' .. font_size ..
-        '}${osd-ass-cc/1}' .. text .. '" ' .. duration)
-end
 
 function get_media_info()
     local path = mp.get_property("path")
@@ -238,41 +136,12 @@ Text;S: ~%Language/String%~, ~%Format%~, ~%Format_Profile%~, ~%Title%~, ~%Stream
     end
 end
 
-mp.register_script_message("print-media-info", function ()
-    local mediainfo = get_media_info()
-    mediainfo = string.gsub(mediainfo, "~", "")
-    mediainfo = string.gsub(mediainfo, ", , ,", ",")
-    mediainfo = string.gsub(mediainfo, ", ,", ",")
-    mediainfo = string.gsub(mediainfo, ", \\n", "\\n")
-    mediainfo = string.gsub(mediainfo, "G: ,", "G:")
-    mediainfo = string.gsub(mediainfo, "V: ,", "V:")
-    mediainfo = string.gsub(mediainfo, "A: ,", "A:")
-
-    show_text(mediainfo, 5000, 16)
-end)
-
------ Restart mpv
-
-mp.register_script_message("restart-mpv", function ()
-    local restart_args = {
-        "mpv",
-        "--pause=" .. mp.get_property("pause"),
-        "--volume=" .. mp.get_property("volume"),
-    }
-
-    local playlist_pos = mp.get_property_number("playlist-pos")
-
-    if playlist_pos > -1 then
-        table.insert(restart_args, "--start=" .. mp.get_property("time-pos"))
-        table.insert(restart_args, mp.get_property("path"))
+function formatMediainfoStringIndexNumber(inputstr, index)
+    endIndex = -1
+    for i = index, 1, -1 do
+        startIndex = string.find(inputstr, '~', endIndex + 1)
+        endIndex = string.find(inputstr, '~', startIndex + 1)
     end
 
-    mp.command_native({
-        name = "subprocess",
-        playback_only = false,
-        detach = true,
-        args = restart_args,
-    })
-
-    mp.command("quit")
-end)
+    return string.sub(inputstr, startIndex + 1, endIndex - 1)
+end

@@ -71,139 +71,7 @@ function create_self_updating_menu_opener(options)
 	end
 end
 
-------------------------------------------------------------------------------------------------------
-------------------------- Mediainfo ------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-
------ string
-
-function is_empty(input)
-    if input == nil or input == "" then
-        return true
-    end
-end
-
-function contains(input, find)
-    if not is_empty(input) and not is_empty(find) then
-        return input:find(find, 1, true)
-    end
-end
-
------ file
-
-function file_exists(path)
-    if is_empty(path) then return false end
-    local file = io.open(path, "r")
-
-    if file ~= nil then
-        io.close(file)
-        return true
-    end
-end
-
-function file_write(path, content)
-    local file = assert(io.open(path, "w"))
-    file:write(content)
-    file:close()
-end
-
------ shared
-
-local is_windows = package.config:sub(1,1) == "\\"
-local msg = require "mp.msg"
-local utils = require "mp.utils"
-
-function get_temp_dir()
-    if is_windows then
-        return os.getenv("TEMP") .. "\\"
-    else
-        return "/tmp/"
-    end
-end
-
-local media_info_cache = {}
-
-function get_media_info()
-	local path = mp.get_property("path")
-
-	if media_info_cache[path] then
-		return media_info_cache[path]
-	end
-
-	local media_info_format = [[General;N: %FileNameExtension%\\nG: %Format%, %FileSize/String%, %Duration/String%, %OverallBitRate/String%, %Recorded_Date%\\n
-Video;V: %Format%, %Format_Profile%, %Width%x%Height%, %BitRate/String%, %FrameRate% FPS\\n
-Audio;A: %Language/String%, %Format%, %Format_Profile%, %BitRate/String%, %Channel(s)% ch, %SamplingRate/String%, %Title%\\n
-Text;S: %Language/String%, %Format%, %Format_Profile%, %Title%\\n]]
-
-	local format_file = get_temp_dir() .. "media-info-format-2.txt"
-
-	if not file_exists(format_file) then
-		file_write(format_file, media_info_format)
-	end
-
-	if contains(path, "://") or not file_exists(path) then
-		return
-	end
-
-	local proc_result = mp.command_native({
-		name = "subprocess",
-		playback_only = false,
-		capture_stdout = true,
-		args = {"mediainfo", "--inform=file://" .. format_file, path},
-	})
-
-	if proc_result.status == 0 then
-		local output = proc_result.stdout
-
-		--output = string.gsub(output, ", , ,", ",")
-		--output = string.gsub(output, ", ,", ",")
-		--output = string.gsub(output, ": , ", ": ")
-		--output = string.gsub(output, ", \\n\r*\n", "\\n")
-		output = string.gsub(output, "\\n\r*\n", "\\n")
-		--output = string.gsub(output, ", \\n", "\\n")
-		output = string.gsub(output, "%.000 FPS", " FPS")
-		output = string.gsub(output, "MPEG Audio, Layer 3", "MP3")
-
-		media_info_cache[path] = output
-
-		return output
-	end
-end
-
-------------------------------------------------------------------------------------------------------
-
-function mysplit(inputstr, sep)
-	local t={}
-	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-			table.insert(t, str)
-	end
-	return t
-end
-
-function getBitrate(inputstr)
-	local str_index = string.find(inputstr, ',')
-	inputstr = string.sub(inputstr, str_index + 2)
-	str_index = string.find(inputstr, ',')
-	inputstr = string.sub(inputstr, str_index + 2)
-	str_index = string.find(inputstr, ',')
-	inputstr = string.sub(inputstr, str_index + 2)
-	str_index = string.find(inputstr, ',')
-	inputstr = string.sub(inputstr, 1, str_index - 1)
-	return inputstr
-end
-
-function getVideoCodec(inputstr)
-	local str_index = string.find(inputstr, ',')
-	local str = string.sub(inputstr, str_index + 2)
-	str_index = string.find(str, ',') + str_index
-	inputstr = string.sub(inputstr, 2, str_index)
-	return inputstr
-end
-
-
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
+require('lib/mediainfo')
 
 function create_select_tracklist_type_menu_opener(menu_title, track_type, track_prop, load_command)
 	local function serialize_tracklist(tracklist)
@@ -217,7 +85,7 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 		local media_info_string = get_media_info()
 		if media_info_string then
 			media_info_string = string.gsub(media_info_string, "\\n", "§")
-			media_info_table = mysplit(media_info_string,'§')
+			media_info_table = split(media_info_string,'§')
 		end
 
 		vid_string={}
@@ -266,6 +134,10 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track.external then h(t('External')) end
 					if track.forced then h(t('Forced')) end
 					if track.default then h(t('Default')) end
+					if sid_string and #sid_string >= sid_index then
+						streamSize = formatMediainfoStringIndexNumber(sid_string[sid_index], 5)
+						if streamSize and streamSize ~= '' then h(streamSize) end
+					end
 					if track.lang then h(track.lang:upper()) end
 					h(track.codec:upper())
 					sid_index = sid_index + 1
@@ -276,12 +148,16 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track.default then h(t('Default')) end
 					if track['demux-channel-count'] then h(t(track['demux-channel-count'] == 1 and '%s Channel' or '%s Channels', track['demux-channel-count'])) end
 					if track['demux-samplerate'] then h(string.format('%.3gkHz', track['demux-samplerate'] / 1000)) end
-					h(track.codec:sub(1,1):upper() .. track.codec:sub(2))
+					h(track.codec:upper())
 					if track.lang then h(track.lang:upper()) end
 					if aid_string and #aid_string >= aid_index then
-						bitrate = getBitrate(aid_string[aid_index])
-						if bitrate and bitrate ~= '' then h(bitrate) end
+						streamSize = formatMediainfoStringIndexNumber(aid_string[aid_index], 8)
+						if streamSize and streamSize ~= '' then h(streamSize) end
 					end
+					if aid_string and #aid_string >= aid_index then
+						bitrate = formatMediainfoStringIndexNumber(aid_string[aid_index], 4)
+						if bitrate and bitrate ~= '' then h(bitrate) end
+					end			
 					aid_index = aid_index + 1
 				end
 				if track.type == 'video' then
@@ -290,17 +166,32 @@ function create_select_tracklist_type_menu_opener(menu_title, track_type, track_
 					if track.forced then h(t('Forced')) end
 					if track.default then h(t('Default')) end
 					if vid_string and #vid_string >= vid_index then
-						h(getVideoCodec(vid_string[vid_index]))
+						local format = formatMediainfoStringIndexNumber(vid_string[vid_index], 1)
+						local formatProfile =formatMediainfoStringIndexNumber(vid_string[vid_index], 2)
+						if format and format ~= '' and formatProfile and formatProfile ~= '' then
+							h(format .. ', ' .. formatProfile)
+						end
+
+						local hdr = formatMediainfoStringIndexNumber(vid_string[vid_index], 3)
+						if hdr and hdr ~= '' then h(hdr) end
+
+						local fps = formatMediainfoStringIndexNumber(vid_string[vid_index], 6)
+						if fps and fps ~= '' then h(fps) end
+
+						local dimensions = formatMediainfoStringIndexNumber(vid_string[vid_index], 4)
+						if dimensions and dimensions ~= '' then h(dimensions) end
+
+						local streamSize = formatMediainfoStringIndexNumber(vid_string[vid_index], 7)
+						if streamSize and streamSize ~= '' then h(streamSize) end
+
+						local bitrate = formatMediainfoStringIndexNumber(vid_string[vid_index], 5)
+						if bitrate and bitrate ~= '' then h(bitrate) end
 					else
 						h(track.codec:upper())
-					end
-					if track['demux-fps'] then h(string.format('%.5g FPS', track['demux-fps'])) end
-					if track['demux-h'] then
-						h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p'))
-					end
-					if vid_string and #vid_string >= vid_index then
-						bitrate = getBitrate(vid_string[vid_index])
-						if bitrate and bitrate ~= '' then h(bitrate) end
+
+						if track['demux-fps'] then h(string.format('%.5g FPS', track['demux-fps'])) end
+
+						if track['demux-h'] then h(track['demux-w'] and (track['demux-w'] .. 'x' .. track['demux-h']) or (track['demux-h'] .. 'p')) end
 					end
 					vid_index = vid_index + 1
 				end
