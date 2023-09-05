@@ -26,7 +26,6 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [M_x](https://github.com/Seme4eg/mpv-scripts/tree/master#m-x) - A menu that shows all commands you have available, key bindings and commends (if present) and from which you can call any of those commands.
 - [taskbar-buttons](https://github.com/qwerty12/mpv-taskbar-buttons/tree/pure-luajit) - Hack to add media control taskbar buttons (well, thumbbar buttons) for mpv.
 - [clipboard](https://github.com/CogentRedTester/mpv-clipboard) - Provides generic but powerful low-level clipboard commands for users and script writers.
-- [cycle-denoise](https://gist.github.com/myfreeer/d744c445aa71c0eeb165ca39cf6c0511) - mpv user-script to cycle between lavfi's denoise filters.
 - [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
 - [waveform](https://github.com/MikelSotomonte/mpv-waveform/tree/main) - Displays a waveform of the video in real-time using ffmpeg waveforms.
 - - -
