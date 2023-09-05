@@ -22,6 +22,7 @@ local o = {
 
     --number of seconds to show the OSD messages
     timeout = 4,
+    
     --enable/disable script
     print_message = true,
 }
