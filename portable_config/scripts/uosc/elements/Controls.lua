@@ -28,6 +28,7 @@ function Controls:init()
 		video = 'command:theaters:script-binding uosc/video#vid#video>1?Video',
 		tracks = 'command:tune:script-binding uosc/tracks?Tracks',
 		mute = 'cycle:volume_up:mute:no/yes=volume_off!?Mute',
+		analytics = 'command:analytics:script-binding stats/display-stats-toggle?Analytics',
 		playlist = 'command:list_alt:script-binding uosc/playlist?Playlist',
 		chapters = 'command:bookmark:script-binding uosc/chapters:add chapter 1:add chapter -1#chapter#chapters>0?Chapters',
 		['editions'] = 'command:bookmarks:script-binding uosc/editions:cycle edition down:cycle edition#editions>1?Editions',
