@@ -26,7 +26,7 @@
 
 require "mp.msg"
 
-script_name = mp.get_script_name()
+script_name = "autodeint"
 detect_label = string.format("%s-detect", script_name)
 pullup_label = string.format("%s", script_name)
 dominance_label = string.format("%s-dominance", script_name)
@@ -153,4 +153,4 @@ function select_filter()
     end
 end
 
-mp.add_key_binding("d", script_name, start_detect)
+mp.add_key_binding(nil, script_name, start_detect)
