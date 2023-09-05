@@ -22,12 +22,14 @@ function Controls:init()
 	-- Serialize control elements
 	local shorthands = {
 		menu = 'command:menu:script-binding uosc/menu-blurred?Menu',
-		subtitles = 'command:subtitles:script-binding uosc/subtitles:cycle sub down:cycle sub#sid#sub?Subtitles',
-		audio = 'command:graphic_eq:script-binding uosc/audio:cycle audio down:cycle audio#aid#audio>1?Audio',
+		subtitles = 'command:subtitles:script-binding uosc/subtitles:cycle sub:cycle sub down#sid#sub?Subtitles',
+		audio = 'command:graphic_eq:script-binding uosc/audio:cycle audio:cycle audio down#aid#audio>1?Audio',
 		['audio-device'] = 'command:speaker:script-binding uosc/audio-device?Audio device',
 		video = 'command:theaters:script-binding uosc/video#vid#video>1?Video',
+		tracks = 'command:tune:script-binding uosc/tracks?Tracks',
+		mute = 'cycle:volume_up:mute:no/yes=volume_off!?Mute',
 		playlist = 'command:list_alt:script-binding uosc/playlist?Playlist',
-		chapters = 'command:bookmark:script-binding uosc/chapters:add chapter -1:add chapter 1#chapter#chapters>0?Chapters',
+		chapters = 'command:bookmark:script-binding uosc/chapters:add chapter 1:add chapter -1#chapter#chapters>0?Chapters',
 		['editions'] = 'command:bookmarks:script-binding uosc/editions:cycle edition down:cycle edition#editions>1?Editions',
 		['stream-quality'] = 'command:high_quality:script-binding uosc/stream-quality?Stream quality',
 		['open-file'] = 'command:file_open:script-binding uosc/open-file?Open file',
