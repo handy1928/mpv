@@ -193,5 +193,6 @@ Custom key bindings can be added/edited in the [input.conf](https://github.com/h
 * [Mathematical evaluation of various scalers](https://artoriuz.github.io/blog/mpv_upscaling.html) - My config uses the best scalers/settings from this analysis.
 * [mpv manual](https://mpv.io/manual/master/) - Lists all the settings and configuration options available including video/audio filters, scripting, and countless other customizations. 
 * [watch-later-options](https://github.com/mpv-player/mpv/blob/master/options/options.c) - Code in mpv where all watch-later-options are stored. Used to remove the ones i don't want to save.
+* [Denoise Shaders](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Collection of Shaders to denoise
 
 Thank you very much to [@Zabooby](https://github.com/Zabooby). This config is forked from [here](https://github.com/Zabooby/mpv-config). I edited and added a lot to fit my needs.
