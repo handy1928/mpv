@@ -1,6 +1,6 @@
 # Personal mpv Configuration for Windows
 
-<p align="center"><img width=100% src="https://github.com/Zabooby/mpv-config/assets/78969986/e1acacc3-e861-42dd-9a68-465bb73feab0" alt="mpv screenshot"></p>
+<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/portable_config/screenshots/media-info.jpg" alt="mpv screenshot"></p>
 <p align="center"><img width=100% src="https://github.com/Zabooby/mpv-config/assets/78969986/9f514484-6011-473f-a225-7e8569bdbcd8" alt="mpv screenshot"></p>
 
 ## Overview
