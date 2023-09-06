@@ -16,7 +16,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [autoload](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autoload.lua) - Automatically load playlist entries before and after the currently playing file, by scanning the directory.
 - [autodeint](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autodeint.lua) - Automatically insert the appropriate deinterlacing filter based on a short section of the current video, triggered by toggle button.
 - [misc](https://github.com/stax76/mpv-scripts/blob/main/misc.lua)
-  - Show detailed media info on screen ([Screenshot](/portable_config/screenshots/media-info.jpg)).
+  - Show detailed media info on screen.
   - Restart mpv restoring the properties path, time-pos, pause and volume.
   - Execute Lua code from input.conf.
   - When seeking display position and duration like so: 70:00 / 80:00.
