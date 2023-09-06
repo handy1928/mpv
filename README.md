@@ -49,7 +49,7 @@ Personally added in scripts:
 - [Anime4k](https://github.com/bloc97/Anime4K) - Shaders designed to scale and enhance anime. Includes shaders for line sharpening, artefact removal, denoising, upscaling, and more.
 - [AMD FidelityFX Super Resolution](https://gist.github.com/agyild/82219c545228d70c5604f865ce0b0ce5) - A spatial upscaler which provides consistent upscaling quality regardless of whether the frame is in movement.
 - [mpv-prescalers](https://github.com/bjin/mpv-prescalers) - RAVU (Rapid and Accurate Video Upscaling) is a set of prescalers with an overall performance consumption design slightly higher than the built-in ewa scaler, while providing much better results. 
-- [SSimDownscaler, SSimSuperRes, KrigBilateral, Adaptive Sharpen](https://gist.github.com/igv) 
+- [SSimDownscaler, SSimSuperRes, KrigBilateral, Adaptive Sharpen](https://gist.github.com/igv)
     - Adaptive Sharpen: Another sharpening shader.
     - SSimDownscaler: Perceptually based downscaler.
     - KrigBilateral: Chroma scaler that uses luma information for high quality upscaling.
@@ -59,9 +59,9 @@ Personally added in scripts:
 
 (Not tested on Linux and macOS. For Linux and macOS users, once mpv is installed, copying the contents of my `portable_config` into the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
 
-* Download the latest 64bit (or 64bit-v3 for newer CPUs) mpv Windows build by shinchiro [here](https://mpv.io/installation/) or directly from [here](https://sourceforge.net/projects/mpv-player-windows/files/) and extract its contents into a folder of your choice (mine is called mpv). This is now your mpv folder and can be placed wherever you want. 
+* Download the latest 64bit (or 64bit-v3 for newer CPUs) mpv Windows build by shinchiro [here](https://mpv.io/installation/) or directly from [here](https://sourceforge.net/projects/mpv-player-windows/files/) and extract its contents into a folder of your choice (mine is called mpv). This is now your mpv folder and can be placed wherever you want.
 * Run `mpv-install.bat`, which is located in the `installer` folder (see below), with administrator privileges by right-clicking and selecting run as administrator, after it's done, you'll get a prompt to open Control Panel and set mpv as the default player.
-* Download and extract the `portable_config` folder from this repo to the mpv folder you just made. 
+* Download and extract the `portable_config` folder from this repo to the mpv folder you just made.
 * **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/portable_config/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
 * You are good to go. Go watch some videos!
 
@@ -73,7 +73,7 @@ After following the steps above, your mpv folder should have the following struc
 mpv
 |
 ├── doc
-│   ├── manual.pdf                            
+│   ├── manual.pdf
 │   └── mpbindings.png                    # Default key bindings if not overridden in input.conf
 │
 ├── installer
@@ -85,7 +85,7 @@ mpv
 │
 ├── portable_config                       # This is where my config is placed
 │   ├── cache                             # Created automatically   
-│   │ 
+│   │
 │   ├── fonts
 │   │   ├── ClearSans-Bold.ttf
 │   │   ├── JetBrainsMono-Regular.ttf
@@ -94,9 +94,12 @@ mpv
 |   |   └── uosc-textures.ttf
 │   │
 │   ├── screenshots
-|   |   └── media-info.jpg                # Screenshot from misc.lua mediainfo
+|   |   ├── showcase_1.webp
+|   |   ├── showcase_2.webp
+|   |   ├── showcase_3.webp
+|   |   └── showcase_4.webp
 │   │
-│   ├── script-modules                
+│   ├── script-modules
 │   │   ├── extended-menu.lua
 │   │   └── user-input-module.lua
 │   │
@@ -105,14 +108,15 @@ mpv
 |   |   ├── crop.conf
 |   |   ├── M_x.conf
 |   |   ├── memo.conf
-|   |   ├── memo-history.log              # Created automatically 
-│   │   ├── thumbfast.conf                    
+|   |   ├── memo-history.log              # Created automatically
+│   │   ├── show_errors.conf
+│   │   ├── thumbfast.conf
 │   │   └── uosc.conf                     # Set desired default directory for uosc menu here
 │   │
-│   ├── scripts      
+│   ├── scripts
 │   │   ├── mpv-taskbar-buttons-pure-luajit       # Full folder of files
 │   │   ├── uosc
-│   │       ├── elements 
+│   │       ├── elements
 |   |           ├── BufferingIndicator.lua
 |   |           ├── Button.lua
 |   |           ├── Controls.lua
@@ -136,6 +140,7 @@ mpv
 |   |       ├── lib
 |   |           ├── ass.lua
 |   |           ├── intl.lua
+|   |           ├── mediainfo.lua
 |   |           ├── menus.lua
 |   |           ├── std.lua
 |   |           ├── text.lua
@@ -144,6 +149,7 @@ mpv
 │   │
 │   │   ├── autodeint.lua                 # Set key binding here, not input.conf (Ctrl+d)
 │   │   ├── autoload.lua
+│   │   ├── clipboard.lua
 │   │   ├── copy-time.lua
 |   |   ├── crop.lua
 |   |   ├── M-x.lua
@@ -153,19 +159,22 @@ mpv
 |   |   ├── show-errors.lua
 |   |   ├── sview.lua
 │   │   ├── thumbfast.lua
-│   │   └── user-input.lua
+│   │   ├── user-input.lua
+│   │   ├── visualizer.lua
+│   │   └── waveform.lua
 │   │
 │   ├── shaders                           # Contains external shaders
-│   │   ├── A4K_Dark.glsl                         
+│   │   ├── myOldShaders                  # TODO sort out
+│   │   ├── A4K_Dark.glsl
 │   │   ├── A4K_Thin.glsl
 │   │   ├── A4K_Upscale_L.glsl
-│   │   ├── adasharp.glsl                     
+│   │   ├── adasharp.glsl
 │   │   ├── adasharpA.glsl                # Adjusted for anime
 │   │   ├── CAS.glsl
 │   │   ├── F8.glsl
 │   │   ├── F8_LA.glsl
 │   │   ├── FSR.glsl
-│   │   ├── krigbl.glsl          
+│   │   ├── krigbl.glsl
 │   │   ├── nlmeans_hqx.glsl
 │   │   ├── NVSharpen.glsl
 │   │   ├── ravu_L_r4.hook
@@ -174,14 +183,16 @@ mpv
 │   │   └── ssimsr.glsl
 │   │
 |   ├── watch_later                       # Video timestamps saved here (created automatically)
-|   ├── fonts.conf                        # Delete duplicate when installing in steps above 
+|   ├── fonts.conf                        # Delete duplicate when installing in steps above
 │   ├── input.conf                        # Tweak uosc right click menu here
-│   ├── mpv.conf                          # General anime profile here 
+│   ├── mpv.conf                          # General anime profile here
 |   └── profiles.conf                     # Up/downscale and more anime profiles here
-|   
+|
+├── .gitignore
 ├── d3dcompiler_43.dll
 ├── mpv.com
 ├── mpv.exe                               # The mpv executable file
+├── README.md
 └── updater.bat                           # Run with administrator priviledges to update mpv
 ```
 
@@ -192,7 +203,7 @@ Custom key bindings can be added/edited in the [input.conf](https://github.com/h
 
 * [mpv wiki](https://github.com/mpv-player/mpv/wiki) - Official wiki with links to user scripts, FAQ's and much more.
 * [Mathematical evaluation of various scalers](https://artoriuz.github.io/blog/mpv_upscaling.html) - My config uses the best scalers/settings from this analysis.
-* [mpv manual](https://mpv.io/manual/master/) - Lists all the settings and configuration options available including video/audio filters, scripting, and countless other customizations. 
+* [mpv manual](https://mpv.io/manual/master/) - Lists all the settings and configuration options available including video/audio filters, scripting, and countless other customizations.
 * [watch-later-options](https://github.com/mpv-player/mpv/blob/master/options/options.c) - Code in mpv where all watch-later-options are stored. Used to remove the ones i don't want to save.
 * [Denoise Shaders](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Collection of Shaders to denoise
 
