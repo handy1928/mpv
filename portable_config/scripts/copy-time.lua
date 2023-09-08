@@ -34,7 +34,8 @@ local function calculateTimeDifference(timeString1, timeString2)
   local milliseconds = diffMilliseconds % 1000
 
   --return string.format("%s%02d:%02d:%02d.%03d", sign, hours, minutes, seconds, milliseconds)
-  return string.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
+  --return string.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
+  return string.format("%d", diffMilliseconds)
 end
 
 function calc_curr_time()
