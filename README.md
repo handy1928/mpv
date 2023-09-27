@@ -1,9 +1,9 @@
 # Personal mpv Configuration for Windows
 
-<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/portable_config/screenshots/showcase_1.webp" alt="mpv screenshot"></p>
-<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/portable_config/screenshots/showcase_2.webp" alt="mpv screenshot"></p>
-<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/portable_config/screenshots/showcase_3.webp" alt="mpv screenshot"></p>
-<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/portable_config/screenshots/showcase_4.webp" alt="mpv screenshot"></p>
+<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/screenshots/showcase_1.webp" alt="mpv screenshot"></p>
+<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/screenshots/showcase_2.webp" alt="mpv screenshot"></p>
+<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/screenshots/showcase_3.webp" alt="mpv screenshot"></p>
+<p align="center"><img width=100% src="https://github.com/handy1928/mpv-config/blob/main/screenshots/showcase_4.webp" alt="mpv screenshot"></p>
 
 ## Overview
 Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-source, & cross-platform media player, with a focus on quality and a practical yet comfortable viewing experience. Contains tuned profiles (for up/downscaling, live action & anime), custom key bindings, a GUI, as well as multiple scripts, shaders & filters serving different functions. Suitable for both high and low-end computers (with some tweaks).
@@ -57,12 +57,12 @@ Personally added in scripts:
    
 ## Installation (on Windows)
 
-(Not tested on Linux and macOS. For Linux and macOS users, once mpv is installed, copying the contents of my `portable_config` into the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
+(Not tested on Linux and macOS. For Linux and macOS users, once mpv is installed, copying the contents of my GitHub into a `portable_config` inside the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
 
 * Download the latest 64bit (or 64bit-v3 for newer CPUs) mpv Windows build by shinchiro [here](https://mpv.io/installation/) or directly from [here](https://sourceforge.net/projects/mpv-player-windows/files/) and extract its contents into a folder of your choice (mine is called mpv). This is now your mpv folder and can be placed wherever you want.
 * Run `mpv-install.bat`, which is located in the `installer` folder (see below), with administrator privileges by right-clicking and selecting run as administrator, after it's done, you'll get a prompt to open Control Panel and set mpv as the default player.
 * Download and extract the [GitHub ZIP](https://github.com/handy1928/mpv-config/archive/refs/heads/main.zip) into a folder called `portable_config` inside the mpv folder you just made.
-* **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/portable_config/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
+* **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
 * You are good to go. Go watch some videos!
 
 After following the steps above, your mpv folder should have the following structure:
@@ -196,7 +196,7 @@ mpv
 ```
 
 ## Key Bindings
-Custom key bindings can be added/edited in the [input.conf](https://github.com/handy1928/mpv/blob/main/portable_config/input.conf) file. Refer to the [manual](https://mpv.io/manual/master/) and [uosc](https://github.com/tomasklaen/uosc#commands) commands for making any changes. Default key bindings can be seen from the [input.conf](https://github.com/handy1928/mpv/blob/main/portable_config/input.conf) file but most of the player functions can be used through the menu accessed by `Right Click` and the buttons above the timeline as seen in the image above.
+Custom key bindings can be added/edited in the [input.conf](https://github.com/handy1928/mpv/blob/main/input.conf) file. Refer to the [manual](https://mpv.io/manual/master/) and [uosc](https://github.com/tomasklaen/uosc#commands) commands for making any changes. Default key bindings can be seen from the [input.conf](https://github.com/handy1928/mpv/blob/main/input.conf) file but most of the player functions can be used through the menu accessed by `Right Click` and the buttons above the timeline as seen in the image above.
 
 ## Useful Links
 
