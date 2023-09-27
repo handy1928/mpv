@@ -26,7 +26,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [show-errors](https://github.com/CogentRedTester/mpv-scripts/blob/master/show-errors.lua) - Prints error messages onto the OSD.
 - [crop](https://github.com/occivink/mpv-scripts/blob/master/scripts/crop.lua) - Crop the current video in a visual manner.
 - [M_x](https://github.com/Seme4eg/mpv-scripts/tree/master#m-x) - A menu that shows all commands you have available, key bindings and commends (if present) and from which you can call any of those commands.
-- [taskbar-buttons](https://github.com/qwerty12/mpv-taskbar-buttons/tree/pure-luajit) - Hack to add media control taskbar buttons (well, thumbbar buttons) for mpv.
+- ~~[taskbar-buttons](https://github.com/qwerty12/mpv-taskbar-buttons/tree/pure-luajit) - Hack to add media control taskbar buttons (well, thumbbar buttons) for mpv.~~
 - [clipboard](https://github.com/CogentRedTester/mpv-clipboard) - Provides generic but powerful low-level clipboard commands for users and script writers.
 - [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
 - [waveform](https://github.com/MikelSotomonte/mpv-waveform/tree/main) - Displays a waveform of the video in real-time using ffmpeg waveforms.
@@ -61,11 +61,11 @@ Personally added in scripts:
 
 * Download the latest 64bit (or 64bit-v3 for newer CPUs) mpv Windows build by shinchiro [here](https://mpv.io/installation/) or directly from [here](https://sourceforge.net/projects/mpv-player-windows/files/) and extract its contents into a folder of your choice (mine is called mpv). This is now your mpv folder and can be placed wherever you want.
 * Run `mpv-install.bat`, which is located in the `installer` folder (see below), with administrator privileges by right-clicking and selecting run as administrator, after it's done, you'll get a prompt to open Control Panel and set mpv as the default player.
-* Download and extract the `portable_config` folder from this repo to the mpv folder you just made.
+* Download and extract the [GitHub ZIP](https://github.com/handy1928/mpv-config/archive/refs/heads/main.zip) into a folder called `portable_config` inside the mpv folder you just made.
 * **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/portable_config/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
 * You are good to go. Go watch some videos!
 
-After following the steps above, your mpv folder should have the following structure (not complete):
+After following the steps above, your mpv folder should have the following structure:
 
 ## File Structure (on Windows)
 
@@ -114,7 +114,6 @@ mpv
 │   │   └── uosc.conf                     # Set desired default directory for uosc menu here
 │   │
 │   ├── scripts
-│   │   ├── mpv-taskbar-buttons-pure-luajit       # Full folder of files
 │   │   ├── uosc
 │   │       ├── elements
 |   |           ├── BufferingIndicator.lua
