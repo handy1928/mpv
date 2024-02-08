@@ -30,6 +30,8 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 - [clipboard](https://github.com/CogentRedTester/mpv-clipboard) - Provides generic but powerful low-level clipboard commands for users and script writers.
 - [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua) - various audio visualization.
 - [waveform](https://github.com/MikelSotomonte/mpv-waveform/tree/main) - Displays a waveform of the video in real-time using ffmpeg waveforms.
+- [chapterskip](https://github.com/po5/chapterskip) - Automatically skips chapters based on title.
+- [mpv-gif-generator](https://github.com/the-honey/mpv-gif-generator) - Windows Gif creator.
 - - -
 Personally added in scripts:
 

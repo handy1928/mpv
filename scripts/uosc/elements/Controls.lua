@@ -25,7 +25,7 @@ function Controls:init()
 		subtitles = 'command:subtitles:set sub 0:cycle sub:cycle sub down#sid#sub?Subtitles',
 		audio = 'command:graphic_eq:set audio 1:cycle audio:cycle audio down#aid#audio>1?Audio',
 		['audio-device'] = 'command:speaker:script-binding uosc/audio-device?Audio device',
-		video = 'command:theaters:set video 1#vid#video>1?Video',
+		video = 'command:theaters:set video 1:cycle video:cycle video down#vid#video>1?Video',
 		tracks = 'command:tune:script-binding uosc/tracks?Tracks',
 		mute = 'cycle:volume_up:mute:no/yes=volume_off!?Mute',
 		analytics = 'command:analytics:script-binding stats/display-stats-toggle?Analytics',

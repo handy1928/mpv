@@ -536,6 +536,12 @@ function serialize_chapter_ranges(normalized_chapters)
 				'^closing$', '^closing ',
 				'^preview$', '^pv$',
 			}},
+		{name = 'skip', patterns = {
+				'[Ss]kip','Skip$','^Skip'
+			}},
+		{name = 'important', patterns = {
+				'[Ii]mportant','Important$','^Important'
+			}},
 	}
 	local sponsor_ranges = {}
 
