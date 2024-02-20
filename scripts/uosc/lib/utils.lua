@@ -542,6 +542,12 @@ function serialize_chapter_ranges(normalized_chapters)
 		{name = 'important', patterns = {
 				'[Ii]mportant','Important$','^Important'
 			}},
+		{name = 'chapter', patterns = {
+				'[Cc]hapter','Chapter$','^Chapter'
+			}},
+		{name = 'episode', patterns = {
+				'[Ee]pisode','Episode$','^Episode'
+			}},
 	}
 	local sponsor_ranges = {}
 
