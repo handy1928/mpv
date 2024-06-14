@@ -145,7 +145,12 @@ function Controls:init()
 				end
 
 				local element = CycleButton:new('control_' .. i, {
-					prop = params[2], anchor_id = 'controls', states = states, tooltip = tooltip,
+					prop = params[2],
+					anchor_id = 'controls',
+					states = states,
+					tooltip = tooltip,
+					on_wheel_up = function() return nil end,
+					on_wheel_down = function() return nil end,
 				})
 				table_assign(control, {element = element, sizing = 'static', scale = 1, ratio = 1})
 				if badge then self:register_badge_updater(badge, element) end
