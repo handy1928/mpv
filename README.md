@@ -36,12 +36,13 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 Personally added in scripts:
 
 * Show all Tracks (Video, Audio, Subtitles) in one uosc menu.
-* Added Bitrate shown in Track view loaded via MediaInfo. ([MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows) has to be installed)
+* Added Bitrate shown in Track view loaded via MediaInfo.
 * Added ability to sort by key length in M-x keybind menu.
 * Script to calculate the diffrence between 2 times and copy to clipboard. (my workflow: 2 mpv windows open Ctrl+c in 1 to copy the time. Ctrl+v in 2 to get the diffrence of both times in clipboard)
 * Every Keybind is in the uosc Menu
 * Ability to disable creating thumbnails
 * Abitlity to scroll on Buttons. For example to cycle audio and subtitle tracks.
+* run python for keypress
 
 ## Shaders
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
@@ -67,6 +68,8 @@ Personally added in scripts:
 * Download and extract the [GitHub ZIP](https://github.com/handy1928/mpv-config/archive/refs/heads/main.zip) into a folder called `portable_config` inside the mpv folder you just made.
 * **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
 * You are good to go. Go watch some videos!
+* install [MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows)
+* install [pynput](https://pypi.org/project/pynput) and update python/keypress.py path
 
 After following the steps above, your mpv folder should have the following structure:
 
