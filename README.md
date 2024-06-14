@@ -36,12 +36,13 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
 Personally added in scripts:
 
 * Show all Tracks (Video, Audio, Subtitles) in one uosc menu.
-* Added Bitrate shown in Track view loaded via MediaInfo. ([MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows) has to be installed)
+* Added Bitrate shown in Track view loaded via MediaInfo.
 * Added ability to sort by key length in M-x keybind menu.
 * Script to calculate the diffrence between 2 times and copy to clipboard. (my workflow: 2 mpv windows open Ctrl+c in 1 to copy the time. Ctrl+v in 2 to get the diffrence of both times in clipboard)
 * Every Keybind is in the uosc Menu
 * Ability to disable creating thumbnails
 * Abitlity to scroll on Buttons. For example to cycle audio and subtitle tracks.
+* run python for keypress
 
 ## Shaders
 - [nlmeans](https://github.com/AN3223/dotfiles/tree/master/.config/mpv/shaders) - Highly configurable and featureful denoiser.
@@ -50,13 +51,14 @@ Personally added in scripts:
 - [FSRCNNX-TensorFlow](https://github.com/igv/FSRCNN-TensorFlow) - Very resource intensive upscaler that uses a neural network to upscale accurately.
 - [Anime4k](https://github.com/bloc97/Anime4K) - Shaders designed to scale and enhance anime. Includes shaders for line sharpening, artefact removal, denoising, upscaling, and more.
 - [AMD FidelityFX Super Resolution](https://gist.github.com/agyild/82219c545228d70c5604f865ce0b0ce5) - A spatial upscaler which provides consistent upscaling quality regardless of whether the frame is in movement.
-- [mpv-prescalers](https://github.com/bjin/mpv-prescalers) - RAVU (Rapid and Accurate Video Upscaling) is a set of prescalers with an overall performance consumption design slightly higher than the built-in ewa scaler, while providing much better results. 
+- [mpv-prescalers](https://github.com/bjin/mpv-prescalers) - RAVU (Rapid and Accurate Video Upscaling) is a set of prescalers with an overall performance consumption design slightly higher than the built-in ewa scaler, while providing much better results.
 - [SSimDownscaler, SSimSuperRes, KrigBilateral, Adaptive Sharpen](https://gist.github.com/igv)
     - Adaptive Sharpen: Another sharpening shader.
     - SSimDownscaler: Perceptually based downscaler.
     - KrigBilateral: Chroma scaler that uses luma information for high quality upscaling.
     - SSimSuperRes: Make corrections to the image upscaled by mpv built-in scaler (removes ringing artifacts and restores original  sharpness).
-   
+- [hdr-toys](https://github.com/natural-harmonia-gropius/hdr-toys) - Componentized Rec.2100 to Rec.709 conversion shader for mpv-player. Featuring dynamic curves and a uniform color space.
+
 ## Installation (on Windows)
 
 (Not tested on Linux and macOS. For Linux and macOS users, once mpv is installed, copying the contents of my GitHub into a `portable_config` inside the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
@@ -66,6 +68,8 @@ Personally added in scripts:
 * Download and extract the [GitHub ZIP](https://github.com/handy1928/mpv-config/archive/refs/heads/main.zip) into a folder called `portable_config` inside the mpv folder you just made.
 * **Adjust any settings in [mpv.conf](https://github.com/handy1928/mpv/blob/main/mpv.conf) to fit your system, use the [manual](https://mpv.io/manual/master/) to find out what different options do or open an issue if you need any help.**
 * You are good to go. Go watch some videos!
+* install [MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download/Windows)
+* install [pynput](https://pypi.org/project/pynput) and update python/keypress.py path
 
 After following the steps above, your mpv folder should have the following structure:
 
