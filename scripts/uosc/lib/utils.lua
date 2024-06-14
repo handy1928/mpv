@@ -520,24 +520,32 @@ function serialize_chapter_ranges(normalized_chapters)
 	local ranges = {}
 	local simple_ranges = {
 		{name = 'openings', patterns = {
-				'^op ', '^op$', ' op$',
-				'^opening$', ' opening$'
+				'^op$', '^op ', ' op$', ' op ',
+				'^opening$', '^opening ', ' opening$', ' opening ',
 			}, requires_next_chapter = true},
 		{name = 'intros', patterns = {
-				'^intro$', ' intro$',
-				'^avant$', '^prologue$'
+				'^intro$', '^intro ', ' intro$', ' intro ',
+				'^avant$', '^avant ', ' avant$', ' avant ',
+				'^prologue$', '^prologue ', ' prologue$', ' prologue ',
 			}, requires_next_chapter = true},
 		{name = 'endings', patterns = {
-				'^ed ', '^ed$', ' ed$',
-				'^ending ', '^ending$', ' ending$',
+				'^ed$', '^ed ', ' ed$', ' ed ',
+				'^ending$', '^ending ', ' ending$', ' ending ',
 			}},
 		{name = 'outros', patterns = {
-				'^outro$', ' outro$',
-				'^closing$', '^closing ',
-				'^preview$', '^pv$',
+				'^outro$', '^outro ', ' outro$', ' outro ',
+				'^epilogue$', '^epilogue ', ' epilogue$', ' epilogue ',
+				'^credit$', '^credit ', ' credit$', ' credit ',
+				'^credits$', '^credits ', ' credits$', ' credits ',
+				'^closing$', '^closing ', ' closing$', ' closing ',
+				'^pv$', '^pv ', ' pv$', ' pv ',
+				'^preview$', '^preview ', ' preview$', ' preview ',
 			}},
 		{name = 'skip', patterns = {
-				'[Ss]kip','Skip$','^Skip'
+				'^Skip$', '^Skip ', ' Skip$', ' Skip ',
+			}},
+		{name = 'recap', patterns = {
+				'^recap$', '^recap ', ' recap$', ' recap ',
 			}},
 		{name = 'important', patterns = {
 				'[Ii]mportant','Important$','^Important'
