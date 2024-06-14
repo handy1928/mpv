@@ -50,13 +50,14 @@ Personally added in scripts:
 - [FSRCNNX-TensorFlow](https://github.com/igv/FSRCNN-TensorFlow) - Very resource intensive upscaler that uses a neural network to upscale accurately.
 - [Anime4k](https://github.com/bloc97/Anime4K) - Shaders designed to scale and enhance anime. Includes shaders for line sharpening, artefact removal, denoising, upscaling, and more.
 - [AMD FidelityFX Super Resolution](https://gist.github.com/agyild/82219c545228d70c5604f865ce0b0ce5) - A spatial upscaler which provides consistent upscaling quality regardless of whether the frame is in movement.
-- [mpv-prescalers](https://github.com/bjin/mpv-prescalers) - RAVU (Rapid and Accurate Video Upscaling) is a set of prescalers with an overall performance consumption design slightly higher than the built-in ewa scaler, while providing much better results. 
+- [mpv-prescalers](https://github.com/bjin/mpv-prescalers) - RAVU (Rapid and Accurate Video Upscaling) is a set of prescalers with an overall performance consumption design slightly higher than the built-in ewa scaler, while providing much better results.
 - [SSimDownscaler, SSimSuperRes, KrigBilateral, Adaptive Sharpen](https://gist.github.com/igv)
     - Adaptive Sharpen: Another sharpening shader.
     - SSimDownscaler: Perceptually based downscaler.
     - KrigBilateral: Chroma scaler that uses luma information for high quality upscaling.
     - SSimSuperRes: Make corrections to the image upscaled by mpv built-in scaler (removes ringing artifacts and restores original  sharpness).
-   
+- [hdr-toys](https://github.com/natural-harmonia-gropius/hdr-toys) - Componentized Rec.2100 to Rec.709 conversion shader for mpv-player. Featuring dynamic curves and a uniform color space.
+
 ## Installation (on Windows)
 
 (Not tested on Linux and macOS. For Linux and macOS users, once mpv is installed, copying the contents of my GitHub into a `portable_config` inside the [relevant](https://mpv.io/manual/master/#files) folders should be sufficient.)
