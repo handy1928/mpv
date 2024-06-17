@@ -546,7 +546,9 @@ function Menu:on_prop_fullormaxed() self:update_content_dimensions() end
 function Menu:handle_cursor_down()
 	if self.proximity_raw == 0 then
 		self.drag_data = {{y = cursor.y, time = mp.get_time()}}
-		self.current.fling = nil
+		if self.current then
+			self.current.fling = nil
+		end
 	else
 		self:close()
 	end
