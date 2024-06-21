@@ -23,9 +23,9 @@ function Controls:init()
 	local shorthands = {
 		menu = 'command:menu:script-binding uosc/menu-blurred?Menu',
 		subtitles = 'command:subtitles:set sub 0:cycle sub:cycle sub down#sid#sub?Subtitles',
-		audio = 'command:graphic_eq:set audio 1:cycle audio:cycle audio down#aid#audio>1?Audio',
+		audio = 'command:graphic_eq:set audio 1:script-message-to misc cycle-tracks-without-no audio up:script-message-to misc cycle-tracks-without-no audio down#aid#audio>1?Audio',
 		['audio-device'] = 'command:speaker:script-binding uosc/audio-device?Audio device',
-		video = 'command:theaters:set video 1:cycle video:cycle video down#vid#video>1?Video',
+		video = 'command:theaters:set video 1:script-message-to misc cycle-tracks-without-no video up:script-message-to misc cycle-tracks-without-no video down#vid#video>1?Video',
 		tracks = 'command:tune:script-binding uosc/tracks?Tracks',
 		mute = 'cycle:volume_up:mute:no/yes=volume_off!?Mute',
 		analytics = 'command:analytics:script-binding stats/display-stats-toggle?Analytics',
@@ -33,7 +33,7 @@ function Controls:init()
 		history = 'command:history:script-binding memo-history?History',
 		playlist = 'command:list_alt:script-binding uosc/playlist?Playlist',
 		chapters = 'command:bookmark:script-binding uosc/chapters:add chapter 1:add chapter -1#chapter#chapters>0?Chapters',
-		['editions'] = 'command:bookmarks:script-binding uosc/editions:cycle edition down:cycle edition#editions>1?Editions',
+		['editions'] = 'command:bookmarks:script-binding uosc/editions:cycle edition:cycle edition down#edition#editions>1?Editions',
 		['stream-quality'] = 'command:high_quality:script-binding uosc/stream-quality?Stream quality',
 		['open-file'] = 'command:file_open:script-binding uosc/open-file?Open file',
 		['items'] = 'command:list_alt:script-binding uosc/items?Playlist/Files',
@@ -218,10 +218,16 @@ function Controls:register_badge_updater(badge, element, max)
 
 	local function handler(_, value)
 		local new_value = serializer(value) --[[@as nil|string|integer]]
+
+		if prop == 'edition' and new_value == 'auto' then
+			new_value = '-1'
+		end
+
 		local value_number = tonumber(new_value)
 		if value_number then
 			new_value = value_number > limit and value_number or nil
 			new_value = prop == 'chapter' and value_number + 1 or value_number
+			new_value = prop == 'edition' and value_number + 1 or value_number
 		end
 		if max then
 			element.badgeMax = new_value

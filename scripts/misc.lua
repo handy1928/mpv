@@ -53,6 +53,23 @@
     input.conf:
     Right no-osd seek 5; script-message-to misc show-position
 
+
+
+    Cycle audio and subtitle tracks
+    -------------------------------
+    Allows to cycle through tracks without "no".
+
+    In input.conf add:
+    SHARP script-message-to misc cycle-known-tracks audio
+    j     script-message-to misc cycle-known-tracks sub up
+    J     script-message-to misc cycle-known-tracks sub down
+
+    ~~/script-opts/misc.conf:
+    #include_no_audio=no
+    #include_no_sub=yes
+
+    The code was originally written by stax76, it was later
+    greatly improved by kaoneko making it much shorter.
 ]]--
 
 ----- string
@@ -276,4 +293,35 @@ mp.register_script_message("restart-mpv", function ()
     })
 
     mp.command("quit")
+end)
+
+----- Cycle audio and subtitle tracks
+
+local o = {
+    include_no_audio = false,
+    include_no_sub = false,
+    include_no_video = false,
+}
+
+local opt = require "mp.options"
+opt.read_options(o)
+
+mp.register_script_message("cycle-tracks-without-no", function (mode, dir)
+    local m = mode:sub(1,1)
+    local track_list = mp.get_property_native("track-list")
+    --local id_list = {o["include_no_"..mode] and "no" or nil}
+    local id_list = {}
+
+    for _,track in pairs(track_list) do
+        if track.type == mode then
+            table.insert(id_list, track.id)
+        end
+    end
+
+    if #id_list < 2 then
+        return
+    else
+        mp.command("cycle-values "..(dir == "down" and "!reverse " or "")..
+                    m.."id "..table.concat(id_list, " "))
+    end
 end)

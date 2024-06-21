@@ -20,6 +20,7 @@ Just my personal config files for use in [mpv,](https://mpv.io/) a free, open-so
   - Restart mpv restoring the properties path, time-pos, pause and volume.
   - Execute Lua code from input.conf.
   - When seeking display position and duration like so: 70:00 / 80:00.
+  - Cycle through tracks without "no".
 - [user-input](https://github.com/CogentRedTester/mpv-user-input) - common API that other scripts can use to request text input from the user via the OSD.
 - [rename](https://github.com/Kayizoku/mpv-rename) - Ability to rename files on the go directly within MPV player window without having to leave it.
 - [copy-time](https://github.com/linguisticmind/mpv-scripts/blob/master/copy-time/win/copy-time.lua) - Copies current timecode in HH:MM:SS.MS format to clipboard (Windows).
