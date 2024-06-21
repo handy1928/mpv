@@ -520,35 +520,37 @@ function serialize_chapter_ranges(normalized_chapters)
 	local ranges = {}
 	local simple_ranges = {
 		{name = 'openings', patterns = {
-				'^op$', '^op ', ' op$', ' op ',
-				'^opening$', '^opening ', ' opening$', ' opening ',
+				'^[Oo][Pp]$', '^[Oo][Pp] ', ' [Oo][Pp]$', ' [Oo][Pp] ',
+				'^[Oo]pening$', '^[Oo]pening ', ' [Oo]pening$', ' [Oo]pening ',
 			}, requires_next_chapter = true},
 		{name = 'intros', patterns = {
-				'^intro$', '^intro ', ' intro$', ' intro ',
-				'^avant$', '^avant ', ' avant$', ' avant ',
-				'^prologue$', '^prologue ', ' prologue$', ' prologue ',
+				'^[Ii]ntro$', '^[Ii]ntro ', ' [Ii]ntro$', ' [Ii]ntro ',
+				'^[Aa]vant$', '^[Aa]vant ', ' [Aa]vant$', ' [Aa]vant ',
+				'^[Pp]rologue$', '^[Pp]rologue ', ' [Pp]rologue$', ' [Pp]rologue ',
 			}, requires_next_chapter = true},
 		{name = 'endings', patterns = {
-				'^ed$', '^ed ', ' ed$', ' ed ',
-				'^ending$', '^ending ', ' ending$', ' ending ',
+				'^[Ee][Dd]$', '^[Ee][Dd] ', ' [Ee][Dd]$', ' [Ee][Dd] ',
+				'^[Ee]nding$', '^[Ee]nding ', ' [Ee]nding$', ' [Ee]nding ',
 			}},
 		{name = 'outros', patterns = {
-				'^outro$', '^outro ', ' outro$', ' outro ',
-				'^epilogue$', '^epilogue ', ' epilogue$', ' epilogue ',
-				'^credit$', '^credit ', ' credit$', ' credit ',
-				'^credits$', '^credits ', ' credits$', ' credits ',
-				'^closing$', '^closing ', ' closing$', ' closing ',
-				'^pv$', '^pv ', ' pv$', ' pv ',
-				'^preview$', '^preview ', ' preview$', ' preview ',
+				'^[Oo]utro$', '^[Oo]utro ', ' [Oo]utro$', ' [Oo]utro ',
+				'^[Ee]pilogue$', '^[Ee]pilogue ', ' [Ee]pilogue$', ' [Ee]pilogue ',
+			}},
+		{name = 'preview', patterns = {
+				'^[Cc]redit$', '^[Cc]redit ', ' [Cc]redit$', ' [Cc]redit ',
+				'^[Cc]redits$', '^[Cc]redits ', ' [Cc]redits$', ' [Cc]redits ',
+				'^[Cc]losing$', '^[Cc]losing ', ' [Cc]losing$', ' [Cc]losing ',
+				'^[Pp][Vv]$', '^[Pp][Vv] ', ' [Pp][Vv]$', ' [Pp][Vv] ',
+				'^[Pp]review$', '^[Pp]review ', ' [Pp]review$', ' [Pp]review ',
 			}},
 		{name = 'skip', patterns = {
 				'^[Ss]kip$', '^[Ss]kip ', ' [Ss]kip$', ' [Ss]kip ',
 			}},
 		{name = 'recap', patterns = {
-				'^recap$', '^recap ', ' recap$', ' recap ',
+				'^[Rr]ecap$', '^[Rr]ecap ', ' [Rr]ecap$', ' [Rr]ecap ',
 			}},
 		{name = 'important', patterns = {
-				'[Ii]mportant','Important$','^Important'
+				'^[Ii]mportant$', '^[Ii]mportant ', ' [Ii]mportant$', ' [Ii]mportant ',
 			}},
 		{name = 'chapter', patterns = {
 			'] [Cc]hapter$','] [Cc]hapter','- [Cc]hapter$','- [Cc]hapter'
