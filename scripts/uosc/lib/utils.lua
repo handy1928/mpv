@@ -542,7 +542,7 @@ function serialize_chapter_ranges(normalized_chapters)
 				'^preview$', '^preview ', ' preview$', ' preview ',
 			}},
 		{name = 'skip', patterns = {
-				'^Skip$', '^Skip ', ' Skip$', ' Skip ',
+				'^[Ss]kip$', '^[Ss]kip ', ' [Ss]kip$', ' [Ss]kip ',
 			}},
 		{name = 'recap', patterns = {
 				'^recap$', '^recap ', ' recap$', ' recap ',
