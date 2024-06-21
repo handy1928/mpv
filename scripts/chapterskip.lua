@@ -5,20 +5,22 @@
 -- This script skips chapters based on their title.
 
 local categories = {
-    prologue = "^Prologue/^Intro",
-    opening = "^OP/ OP$/^Opening",
-    ending = "^ED/ ED$/^Ending",
-    preview = "Preview$"
+    openings = '^[Oo][Pp]$/^[Oo][Pp] / [Oo][Pp]$/ [Oo][Pp] /^[Oo]pening$/^[Oo]pening / [Oo]pening$/ [Oo]pening ',
+    intros = '^[Ii]ntro$/^[Ii]ntro / [Ii]ntro$/ [Ii]ntro /^[Aa]vant$/^[Aa]vant / [Aa]vant$/ [Aa]vant /^[Pp]rologue$/^[Pp]rologue / [Pp]rologue$/ [Pp]rologue ',
+    endings = '^[Ee][Dd]$/^[Ee][Dd] / [Ee][Dd]$/ [Ee][Dd] /^[Ee]nding$/^[Ee]nding / [Ee]nding$/ [Ee]nding ',
+    outros = '^[Oo]utro$/^[Oo]utro / [Oo]utro$/ [Oo]utro /^[Ee]pilogue$/^[Ee]pilogue / [Ee]pilogue$/ [Ee]pilogue ',
+    preview = '^[Cc]redit$/^[Cc]redit / [Cc]redit$/ [Cc]redit /^[Cc]redits$/^[Cc]redits / [Cc]redits$/ [Cc]redits /^[Cc]losing$/^[Cc]losing / [Cc]losing$/ [Cc]losing /^[Pp][Vv]$/^[Pp][Vv] / [Pp][Vv]$/ [Pp][Vv] /^[Pp]review$/^[Pp]review / [Pp]review$/ [Pp]review ',
+    skip = '^[Ss]kip$/^[Ss]kip / [Ss]kip$/ [Ss]kip ',
+    recap = '^[Rr]ecap$/^[Rr]ecap / [Rr]ecap$/ [Rr]ecap ',
 }
 
 local options = {
     enabled = true,
     skip_once = true,
     categories = "",
-    skip = ""
+    skip = "skip"
 }
 
-mp.options = require "mp.options"
 
 function matches(i, title)
     for category in string.gmatch(options.skip, " *([^;]*[^; ]) *") do
@@ -46,7 +48,6 @@ local skipped = {}
 local parsed = {}
 
 function chapterskip(_, current)
-    mp.options.read_options(options, "chapterskip")
     if not options.enabled then return end
     for category in string.gmatch(options.categories, "([^;]+)") do
         name, patterns = string.match(category, " *([^+>]*[^+> ]) *[+>](.*)")
@@ -70,6 +71,7 @@ function chapterskip(_, current)
         elseif skip then
             mp.set_property("time-pos", chapter.time)
             skipped[skip] = true
+            mp.osd_message("Skipped Chapter: "..chapters[skip].title,2)
             return
         end
     end
@@ -81,5 +83,28 @@ function chapterskip(_, current)
     end
 end
 
+
+function chapterskip_clear_categories()
+    options.skip = ""
+    mp.osd_message("Cleared Chapter Skip Categories")
+end
+
+function chapterskip_add_categorie(categorie)
+    options.skip = options.skip..";"..categorie
+    mp.osd_message("Added \""..categorie.."\" to Chapter Skip Categories")
+end
+
+function chapterskip_skip_once()
+    if options.skip_once then
+        mp.osd_message("Chapters in Categories will always be skipped")
+    else
+        mp.osd_message("Chapters in Categories will only be skipped once")
+    end
+    options.skip_once = not options.skip_once
+end
+
 mp.observe_property("chapter", "number", chapterskip)
 mp.register_event("file-loaded", function() skipped = {} end)
+mp.register_script_message("chapterskip-clear-categories", chapterskip_clear_categories)
+mp.register_script_message("chapterskip-add-categorie", chapterskip_add_categorie)
+mp.register_script_message("chapterskip-skip-once", chapterskip_skip_once)
