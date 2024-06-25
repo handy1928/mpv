@@ -3,7 +3,7 @@ utils = require 'mp.utils'
 require 'mp.options'
 
 local python = "C:\\Python312\\python.exe"
-local csscript = "C:\\PortablePrograms\\StartMenu\\mpv\\portable_config\\scripts\\keypress.py"
+local csscript = "C:\\PortablePrograms\\StartMenu\\mpv\\portable_config\\python\\keypress.py"
 
 function cs_cmd(cmd)
     local command = {
